@@ -1,4 +1,4 @@
-import Ship from "./ship";
+const Ship = require("./ship");
 
 test("check length", () => {
   const ship = Ship(3, [1, 2, 3]);

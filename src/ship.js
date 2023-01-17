@@ -1,6 +1,7 @@
 function Ship(length, coords) {
   let hitCounter = 0;
   return {
+    id: Date.now(),
     length: length,
     coords: coords,
 
@@ -21,4 +22,4 @@ function Ship(length, coords) {
   };
 }
 
-export default Ship;
+module.exports = Ship;
