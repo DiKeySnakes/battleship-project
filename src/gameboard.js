@@ -5,7 +5,6 @@ function Gameboard() {
   let missedShotCounter = 0;
   const fleet = [];
   const battlefield = [];
-
   return {
     createCell(id) {
       return {
@@ -35,6 +34,22 @@ function Gameboard() {
       return battlefield;
     },
 
+    getBattlefield() {
+      return battlefield;
+    },
+
+    getFleet() {
+      return fleet;
+    },
+
+    getHitCounter() {
+      return hitCounter;
+    },
+
+    getMissedShotCounter() {
+      return missedShotCounter;
+    },
+
     receiveAttack(coord) {
       const attack = coord;
       if (
@@ -47,12 +62,10 @@ function Gameboard() {
         targetShip.hit(attack);
         battlefield[attack].isHit = true;
         hitCounter++;
-        console.log("hitCounter:", hitCounter);
         return true;
       }
       battlefield[attack].isHit = true;
       missedShotCounter++;
-      console.log("missedShotCounter:", missedShotCounter);
       return false;
     },
 
