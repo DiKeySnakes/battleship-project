@@ -1,5 +1,4 @@
 const Gameboard = require("./gameboard");
-// const Ship = require("./ship");
 
 test("check if gameboard cell is created", () => {
   const newGame = Gameboard();
