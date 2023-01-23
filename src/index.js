@@ -4,4 +4,10 @@ const Dom = require("./dom");
 
 const newDom = Dom();
 
-newDom.renderBoards();
+function render() {
+  newDom.renderBoards();
+}
+
+render();
+
+newDom.playerHuman.turn = true;

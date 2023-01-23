@@ -1,20 +1,21 @@
 function Ship(length, coords) {
-  let hitCounter = 0;
+  let hits = 0;
   return {
-    id: Date.now(),
+    id: Date.now() + Math.floor(Math.random() * 100),
     length: length,
     coords: coords,
 
     hit(coord) {
-      if (coords.includes(coord)) {
-        hitCounter++;
+      const a = Number(coord);
+      if (coords.includes(a)) {
+        hits++;
         return true;
       }
       return false;
     },
 
     isSunk() {
-      if (hitCounter === length) {
+      if (hits === length) {
         return true;
       }
       return false;

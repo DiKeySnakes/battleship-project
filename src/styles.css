@@ -21,7 +21,6 @@
 
 html {
   font-size: 62.5%;
-  /* scroll-behavior: smooth; */
 }
 
 body {
@@ -31,7 +30,6 @@ body {
   line-height: 1.4;
   color: var(--main-white);
   background-color: var(--main-blue);
-  /* background-image: linear-gradient(62deg, #3a3d40 0%, #181719 100%); */
 }
 
 h1,
@@ -58,7 +56,6 @@ h2 {
 }
 
 .battlefields-container {
-  /* width: 70%; */
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -93,7 +90,15 @@ h2 {
   background: var(--main-white);
 }
 
-[data-ship-id="ship"] {
+#player-battlefield [data-ship-id="ship"] {
+  background: var(--main-gray);
+}
+
+[data-is-hit="hit"] {
+  background: var(--main-red);
+}
+
+[data-ship-id="ship"][data-is-hit="hit"] {
   background: var(--main-gray);
 }
 

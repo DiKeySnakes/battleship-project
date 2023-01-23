@@ -26,11 +26,11 @@ playerComputer.gameboard.placeShip(3, [25, 26, 27]);
 // Computer.gameboard.placeShip(3, [25, 26, 27]);
 // console.log(Game().getComputerBattlefield());
 // console.log(Game().getHumanBattlefield());
-console.log(playerComputer.gameboard.getBattlefield());
+// console.log(playerComputer.gameboard.getBattlefield());
 const playerHuman = initializedGame.Human;
 playerHuman.gameboard.placeShip(3, [1, 2, 3]);
-console.log(playerHuman.gameboard.getBattlefield());
+// console.log(playerHuman.gameboard.getBattlefield());
 playerHuman.gameboard.placeShip(3, [10, 11, 12]);
-console.log(playerHuman.gameboard.getBattlefield());
+// console.log(playerHuman.gameboard.getBattlefield());
 
 module.exports = Game;
