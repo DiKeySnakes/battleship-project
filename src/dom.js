@@ -1,6 +1,7 @@
 const Game = require("./game");
 
 function Dom() {
+  const randomArr = [];
   const playerContainer = document.querySelector("#player-battlefield");
   const computerContainer = document.querySelector("#computer-battlefield");
 
@@ -75,12 +76,20 @@ function Dom() {
               "missed shots:",
               playerComputer.gameboard.getMissedShotCounter()
             );
+            playerHuman.turn = false;
+            playerComputer.turn = true;
+          }
+          if (playerComputer.turn) {
+            this.randomAttack();
+            this.updateHumanBoard();
+            playerComputer.turn = false;
+            playerHuman.turn = true;
           }
         });
       }
       for (let c = 0; c < playerHumanBattlefield.length; c++) {
         const cell2 = document.createElement("div");
-        cell2.dataset.id = c;
+        cell2.dataset.id = `p${c}`;
         if (!playerHumanBattlefield[c].isFree) {
           cell2.dataset.isFree = "occupied";
         }
@@ -91,6 +100,43 @@ function Dom() {
           cell2.dataset.shipId = "ship";
         }
         playerContainer.appendChild(cell2).className = "grid-item";
+      }
+    },
+
+    randomCoord() {
+      const coord = Math.floor(Math.random() * 100);
+      return coord;
+    },
+
+    randomAttack() {
+      let randomCell = this.randomCoord();
+      if (!randomArr.includes(randomCell)) {
+        randomArr.push(randomCell);
+        console.log(randomArr);
+        playerHuman.gameboard.receiveAttack(randomCell);
+        console.log("player hits:", playerHuman.gameboard.getHitCounter());
+        console.log(
+          "player missed shots:",
+          playerHuman.gameboard.getMissedShotCounter()
+        );
+      } else {
+        randomCell = this.randomCoord();
+        this.randomAttack();
+      }
+    },
+
+    updateHumanBoard() {
+      for (let c = 0; c < playerHumanBattlefield.length; c++) {
+        const cell = document.querySelector(`[data-id="p${c}"]`);
+        if (!playerHumanBattlefield[c].isFree) {
+          cell.dataset.isFree = "occupied";
+        }
+        if (playerHumanBattlefield[c].isHit) {
+          cell.dataset.isHit = "hit";
+        }
+        if (playerHumanBattlefield[c].shipId) {
+          cell.dataset.shipId = "ship";
+        }
       }
     },
   };

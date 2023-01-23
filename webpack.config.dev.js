@@ -40,6 +40,13 @@ module.exports = {
           filename: "fonts/[name][hash][ext][query]",
         },
       },
+      {
+        test: /\.(mp3|wav)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "sounds/[name][hash][ext][query]",
+        },
+      },
     ],
   },
 };

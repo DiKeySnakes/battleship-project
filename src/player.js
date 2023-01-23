@@ -27,7 +27,7 @@ function Player() {
 
     randomCoord() {
       const coord = Math.floor(Math.random() * 100);
-      return [coord];
+      return coord;
     },
   };
 }
