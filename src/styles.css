@@ -6,6 +6,7 @@
   --main-white: #f0f0f0;
   --main-red: #be3144;
   --main-blue: #45567d;
+  --main-light-blue: rgba(83, 158, 208, 1);
   --main-gray: #303841;
   --main-text-shadow: 0.5rem 0.5rem 0.25rem rgba(0, 0, 0, 0.75);
   --main-box-shadow: 2.5rem 2.5rem 1.25rem 0rem rgba(0, 0, 0, 0.35);
@@ -94,12 +95,16 @@ h2 {
   background: var(--main-gray);
 }
 
-[data-is-hit="hit"] {
+#player-battlefield [data-ship-id="ship"][data-is-hit="hit"] {
   background: var(--main-red);
 }
 
+[data-is-hit="hit"] {
+  background: var(--main-light-blue);
+}
+
 [data-ship-id="ship"][data-is-hit="hit"] {
-  background: var(--main-gray);
+  background: var(--main-red);
 }
 
 #footer {

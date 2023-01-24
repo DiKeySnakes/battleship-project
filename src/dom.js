@@ -1,6 +1,8 @@
 const Game = require("./game");
 
 function Dom() {
+  let prevSuccess = false;
+  const targetQueue = [];
   const randomArr = [];
   const playerContainer = document.querySelector("#player-battlefield");
   const computerContainer = document.querySelector("#computer-battlefield");
@@ -80,7 +82,7 @@ function Dom() {
             playerComputer.turn = true;
           }
           if (playerComputer.turn) {
-            this.randomAttack();
+            this.attack();
             this.updateHumanBoard();
             playerComputer.turn = false;
             playerHuman.turn = true;
@@ -109,20 +111,78 @@ function Dom() {
     },
 
     randomAttack() {
+      console.log("random attack!!!");
       let randomCell = this.randomCoord();
       if (!randomArr.includes(randomCell)) {
         randomArr.push(randomCell);
         console.log(randomArr);
-        playerHuman.gameboard.receiveAttack(randomCell);
-        console.log("player hits:", playerHuman.gameboard.getHitCounter());
+        if (playerHuman.gameboard.receiveAttack(randomCell)) {
+          prevSuccess = true;
+          if (!randomArr.includes(randomCell + 1) && randomCell + 1 < 100) {
+            targetQueue.push(randomCell + 1);
+          }
+          if (!randomArr.includes(randomCell - 1) && randomCell - 1 >= 0) {
+            targetQueue.push(randomCell - 1);
+          }
+          if (!randomArr.includes(randomCell + 10) && randomCell + 10 < 100) {
+            targetQueue.push(randomCell + 10);
+          }
+          if (!randomArr.includes(randomCell - 10) && randomCell - 10 >= 0) {
+            targetQueue.push(randomCell - 10);
+          }
+          console.log(prevSuccess, targetQueue);
+        } else {
+          prevSuccess = false;
+        }
+        console.log("randomCell", randomCell);
+        console.log("computer hits:", playerHuman.gameboard.getHitCounter());
         console.log(
-          "player missed shots:",
+          "computer missed shots:",
           playerHuman.gameboard.getMissedShotCounter()
         );
       } else {
         randomCell = this.randomCoord();
         this.randomAttack();
       }
+    },
+
+    targetAttack() {
+      console.log("target attack!!!");
+      const coord = targetQueue.shift();
+      randomArr.push(coord);
+      console.log("coord:", coord);
+      if (playerHuman.gameboard.receiveAttack(coord)) {
+        prevSuccess = true;
+        if (!randomArr.includes(coord + 1) && coord + 1 < 100) {
+          targetQueue.push(coord + 1);
+        }
+        if (!randomArr.includes(coord - 1) && coord - 1 >= 0) {
+          targetQueue.push(coord - 1);
+        }
+        if (!randomArr.includes(coord + 10) && coord + 10 < 100) {
+          targetQueue.push(coord + 10);
+        }
+        if (!randomArr.includes(coord - 10) && coord - 10 >= 0) {
+          targetQueue.push(coord - 10);
+        }
+        console.log(prevSuccess, targetQueue);
+      } else {
+        prevSuccess = false;
+      }
+      console.log("computer hits:", playerHuman.gameboard.getHitCounter());
+      console.log(
+        "computer missed shots:",
+        playerHuman.gameboard.getMissedShotCounter()
+      );
+    },
+
+    attack() {
+      if (prevSuccess || targetQueue.length !== 0) {
+        this.targetAttack();
+      } else {
+        this.randomAttack();
+      }
+      console.log(prevSuccess, targetQueue);
     },
 
     updateHumanBoard() {
