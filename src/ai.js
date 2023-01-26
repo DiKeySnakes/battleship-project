@@ -12,20 +12,25 @@ function Ai() {
       return coord;
     },
 
+    // eslint-disable-next-line consistent-return
     createRandomShipCoords(length) {
       const coords = [];
-      const valid = this.createValidStartingPoint(length);
-      if (valid.axis === 0) {
-        for (let i = 0; i < length; i++) {
-          coords.push(valid.startingPoint + i);
+      const axis = Math.round(Math.random());
+      const startingPoint = this.randomCoord();
+      if (this.isFit(axis, startingPoint, length)) {
+        if (axis === 0) {
+          for (let i = 0; i < length; i++) {
+            coords.push(startingPoint + i);
+          }
+        } else {
+          for (let i = 0; i < length; i++) {
+            coords.push(startingPoint + i * 10);
+          }
         }
-      } else {
-        for (let i = 0; i < length; i++) {
-          coords.push(valid.startingPoint + i * 10);
-        }
+        console.log(coords);
+        return coords;
       }
-      console.log(coords);
-      return coords;
+      this.createRandomShipCoords(length);
     },
 
     isFit(axis, startingPoint, length) {
@@ -43,18 +48,10 @@ function Ai() {
       }
       return false;
     },
-
-    createValidStartingPoint(length) {
-      const axis = Math.round(Math.random());
-      const startingPoint = this.randomCoord();
-      if (!this.isFit(axis, startingPoint, length)) {
-        this.createValidStartingPoint(length);
-      }
-      return { axis, startingPoint, length };
-    },
   };
 }
 
 Ai().createRandomShipCoords(5);
-
+// Ai().createValidStartingPoint(5);
+// console.log(Ai().isFit(1, 82, 5));
 module.exports = Ai;
