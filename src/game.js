@@ -1,5 +1,4 @@
 const Player = require("./player");
-// const Gameboard = require("./gameboard");
 
 function Game() {
   const newPlayer = Player();

@@ -1,6 +1,8 @@
 const Game = require("./game");
+const Ai = require("./ai");
 
 function Dom() {
+  const ai = Ai();
   let prevSuccess = false;
   const targetQueue = [];
   const randomArr = [];
@@ -10,32 +12,49 @@ function Dom() {
   const newGame = Game();
   const initializedGame = newGame.initNewGame();
   const playerComputer = initializedGame.Computer;
-  function placeDestroyer() {
-    playerComputer.gameboard.placeShip(3, [25, 26, 27]);
+
+  function buildFleet() {
+    ai.createRandomFleet();
+    const computerFleet = ai.randomFleet;
+    console.log(computerFleet);
+    for (let i = 0; i < computerFleet.length; i++) {
+      playerComputer.gameboard.placeShip(
+        computerFleet[i][0],
+        computerFleet[i][1]
+      );
+    }
   }
-  placeDestroyer();
-  function placeCarrier() {
-    playerComputer.gameboard.placeShip(5, [95, 96, 97, 98, 99]);
-  }
-  placeCarrier();
+
+  buildFleet();
+
+  // function placeDestroyer() {
+  //   playerComputer.gameboard.placeShip(3, [25, 26, 27]);
+  // }
+  // placeDestroyer();
+  // function placeCarrier() {
+  //   playerComputer.gameboard.placeShip(5, [95, 96, 97, 98, 99]);
+  // }
+  // placeCarrier();
+  // function placeBattleship() {
+  //   playerComputer.gameboard.placeShip(4, [12, 22, 32, 42]);
+  // }
+  // placeBattleship();
+  // function placeSubmarine() {
+  //   playerComputer.gameboard.placeShip(3, [67, 68, 69]);
+  // }
+  // placeSubmarine();
+  // function placePatrolBoat() {
+  //   playerComputer.gameboard.placeShip(2, [60, 70]);
+  // }
+  // placePatrolBoat();
+
   const playerHuman = initializedGame.Human;
   playerHuman.gameboard.placeShip(2, [55, 65]);
   playerHuman.gameboard.placeShip(3, [1, 2, 3]);
   playerHuman.gameboard.placeShip(3, [22, 23, 24]);
   playerHuman.gameboard.placeShip(5, [50, 60, 70, 80, 90]);
-  function placeBattleship() {
-    playerComputer.gameboard.placeShip(4, [12, 22, 32, 42]);
-  }
-  placeBattleship();
   playerHuman.gameboard.placeShip(4, [19, 29, 39, 49]);
-  function placeSubmarine() {
-    playerComputer.gameboard.placeShip(3, [67, 68, 69]);
-  }
-  placeSubmarine();
-  function placePatrolBoat() {
-    playerComputer.gameboard.placeShip(2, [60, 70]);
-  }
-  placePatrolBoat();
+
   const playerComputerBattlefield = playerComputer.gameboard.getBattlefield();
   const playerHumanBattlefield = playerHuman.gameboard.getBattlefield();
 
