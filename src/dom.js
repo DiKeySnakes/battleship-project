@@ -27,6 +27,73 @@ function Dom() {
 
   buildFleet();
 
+  const openModalButtons = document.querySelectorAll("[data-modal-target]");
+  const closeModalButtons = document.querySelectorAll("[data-close-button]");
+  const shipMessage = document.getElementById("ship");
+  const lengthMessage = document.getElementById("length");
+  const directionMessage = document.getElementById("direction");
+  const overlay = document.getElementById("overlay");
+  const placeShipsContainer = document.getElementById("player-place-ships");
+  const rotateButton = document.querySelector("[data-rotate-button]");
+  let direction = 0;
+  const shipList = [
+    ["Carrier", 5],
+    ["Battleship", 4],
+    ["Destroyer", 3],
+    ["Submarine", 3],
+    ["Patrol boat", 2],
+  ];
+
+  function changeDirection() {
+    console.log("Change direction!!!");
+    if (direction === 0) {
+      direction = 1;
+      directionMessage.textContent = "Direction: Vertical";
+      return direction;
+    }
+    direction = 0;
+    directionMessage.textContent = "Direction: Horizontal";
+    return direction;
+  }
+
+  function openModal(modal) {
+    if (modal == null) return;
+    modal.classList.add("active");
+    overlay.classList.add("active");
+  }
+
+  function closeModal(modal) {
+    if (modal == null) return;
+    modal.classList.remove("active");
+    overlay.classList.remove("active");
+  }
+
+  openModalButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const modal = document.querySelector(button.dataset.modalTarget);
+      openModal(modal);
+    });
+  });
+
+  overlay.addEventListener("click", () => {
+    const modals = document.querySelectorAll(".modal.active");
+    modals.forEach((modal) => {
+      closeModal(modal);
+    });
+  });
+
+  closeModalButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const modal = button.closest(".modal");
+      closeModal(modal);
+    });
+  });
+
+  rotateButton.addEventListener("click", () => {
+    changeDirection();
+    console.log(direction);
+  });
+
   // function placeDestroyer() {
   //   playerComputer.gameboard.placeShip(3, [25, 26, 27]);
   // }
@@ -61,6 +128,131 @@ function Dom() {
   return {
     playerComputer,
     playerHuman,
+
+    /* eslint-disable */
+    createGrid() {
+      const shipNameQueue = [];
+      const shipLengthQueue = [];
+
+      shipList.forEach((el) => {
+        shipNameQueue.push(el[0]);
+      });
+      shipList.forEach((el) => {
+        shipLengthQueue.push(el[1]);
+      });
+      console.log(shipNameQueue);
+      console.log(shipLengthQueue);
+
+      let shipLength = shipLengthQueue.shift();
+      let shipName = shipNameQueue.shift();
+
+      let directionName = "Horizontal";
+      if (direction === 1) {
+        directionName = "Vertical";
+      } else {
+        directionName = "Horizontal";
+      }
+
+      shipMessage.textContent = `Place your ${shipName}`;
+      lengthMessage.textContent = `Ship length: ${shipLength} cells`;
+      directionMessage.textContent = `Direction: ${directionName}`;
+
+      const humanFleet = playerHuman.gameboard.getFleet();
+      console.log(humanFleet);
+
+      const a = 10;
+      const b = 10;
+      placeShipsContainer.style.setProperty("--grid-rows", a);
+      placeShipsContainer.style.setProperty("--grid-cols", b);
+      for (let c = 0; c < playerComputerBattlefield.length; c++) {
+        const cell = document.createElement("div");
+        cell.dataset.id = c;
+        if (!playerHumanBattlefield[c].isFree) {
+          cell.dataset.isFree = "occupied";
+        }
+        if (playerHumanBattlefield[c].isHit) {
+          cell.dataset.isHit = "hit";
+        }
+        if (playerHumanBattlefield[c].shipId) {
+          cell.dataset.shipId = "ship";
+        }
+        placeShipsContainer.appendChild(cell).className = "grid-item";
+        cell.addEventListener("mouseover", () => {
+          const start = Number(cell.dataset.id);
+          if (this.checkCoordIsValid(start, shipLength)) {
+            console.log(start);
+            cell.dataset.valid = true;
+          } else {
+            console.log(start);
+            cell.dataset.valid = false;
+          }
+        });
+        cell.addEventListener("click", () => {
+          const start = Number(cell.dataset.id);
+          const coords = this.createCoords(start, shipLength);
+          playerHuman.gameboard.placeShip(shipLength, coords);
+          this.updatePlaceShipContainer();
+          this.updateHumanBoard();
+          shipName = shipNameQueue.shift();
+          shipLength = shipLengthQueue.shift();
+
+          if (direction === 1) {
+            directionName = "Vertical";
+          } else {
+            directionName = "Horizontal";
+          }
+
+          shipMessage.textContent = `Place your ${shipName}`;
+          lengthMessage.textContent = `Ship length: ${shipLength} cells`;
+          directionMessage.textContent = `Direction: ${directionName}`;
+
+          console.log(shipName);
+          console.log(shipLength);
+          console.log("Human fleet length:", humanFleet.length);
+          if (humanFleet.length === 10) {
+            closeModal(modal);
+          }
+        });
+      }
+    },
+    /* eslint-enable */
+
+    checkCoordIsValid(start, shipLength) {
+      if (ai.isFit(direction, start, shipLength)) {
+        console.log("true");
+        return true;
+      }
+      console.log("false");
+      return false;
+    },
+
+    createCoords(start, shipLength) {
+      let coords;
+      if (this.checkCoordIsValid(start, shipLength)) {
+        coords = ai.createShipCoords(direction, start, shipLength);
+      }
+      return coords;
+    },
+
+    updatePlaceShipContainer() {
+      for (let c = 0; c < playerHumanBattlefield.length; c++) {
+        const cell = document.querySelector(`[data-id="${c}"]`);
+        if (!playerHumanBattlefield[c].isFree) {
+          cell.dataset.isFree = "occupied";
+        }
+        if (playerHumanBattlefield[c].isHit) {
+          cell.dataset.isHit = "hit";
+        }
+        if (playerHumanBattlefield[c].shipId) {
+          cell.dataset.shipId = "ship";
+        }
+      }
+    },
+
+    announceShipCreation() {
+      openModal(modal); // eslint-disable-line
+    },
+
     renderBoards() {
       const a = 10;
       const b = 10;

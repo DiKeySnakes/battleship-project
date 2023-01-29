@@ -123,6 +123,21 @@ function Ai() {
       return this.createRandomShipCoords(length);
     },
 
+    createShipCoords(direction, startingPoint, length) {
+      const coords = [];
+      if (direction === 0) {
+        for (let i = 0; i < length; i++) {
+          coords.push(startingPoint + i);
+        }
+      } else {
+        for (let i = 0; i < length; i++) {
+          coords.push(startingPoint + i * 10);
+        }
+      }
+      console.log(coords);
+      return coords;
+    },
+
     createValidStartingPoint(length) {
       const axis = Math.round(Math.random());
       const startingPoint = this.randomCoord();

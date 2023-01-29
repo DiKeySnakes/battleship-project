@@ -56,6 +56,11 @@ h2 {
   margin-bottom: 10rem;
 }
 
+.message {
+  color: #be3144;
+  font-size: 2rem;
+}
+
 .battlefields-container {
   display: flex;
   flex-direction: row;
@@ -64,7 +69,8 @@ h2 {
 }
 
 #player-battlefield,
-#computer-battlefield {
+#computer-battlefield,
+#player-place-ships {
   display: grid;
   width: 400px;
   height: 400px;
@@ -81,6 +87,37 @@ h2 {
 
 #computer-battlefield {
   margin-left: 5rem;
+  cursor: crosshair;
+}
+
+#player-place-ships {
+  margin: 5rem auto;
+}
+
+#player-place-ships [data-valid="true"] {
+  cursor: cell;
+}
+
+#player-place-ships [data-valid="false"] {
+  cursor: not-allowed;
+}
+
+#player-place-ships [data-valid="true"]:hover {
+  background-color: lightgreen;
+}
+
+#player-place-ships [data-ship-id="ship"] {
+  background: var(--main-gray);
+  cursor: not-allowed;
+}
+
+#player-place-ships [data-ship-id="ship"]:hover {
+  background: var(--main-gray);
+  cursor: not-allowed;
+}
+
+#player-place-ships [data-pattern="pattern"] {
+  background-color: lightgreen;
 }
 
 .grid-item {
@@ -141,4 +178,74 @@ h2 {
 
 #icon:hover {
   transform: rotate(360deg) scale(1.2);
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border: 0.25rem solid var(--main-black);
+  border-radius: 1rem;
+  z-index: 10;
+  background-color: var(--main-white);
+  width: 500px;
+  max-width: 80%;
+}
+
+.modal.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.15rem solid var(--main-black);
+}
+
+.modal-header .title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #303841;
+  margin-top: 3rem;
+}
+
+.modal-header .close-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.modal-body {
+  padding: 1rem 1.5rem;
+  font-size: 1.8rem;
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  transition: 200ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
 }

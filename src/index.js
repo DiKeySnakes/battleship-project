@@ -8,6 +8,9 @@ function render() {
   newDom.renderBoards();
 }
 
+newDom.createGrid();
+newDom.announceShipCreation();
+
 render();
 
 newDom.playerHuman.turn = true;
