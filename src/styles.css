@@ -58,7 +58,7 @@ h2 {
 
 .message {
   color: #be3144;
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
 .battlefields-container {
@@ -116,10 +116,6 @@ h2 {
   cursor: not-allowed;
 }
 
-#player-place-ships [data-pattern="pattern"] {
-  background-color: lightgreen;
-}
-
 .grid-item {
   margin: 0;
   padding: 0;
@@ -142,6 +138,10 @@ h2 {
 
 [data-ship-id="ship"][data-is-hit="hit"] {
   background: var(--main-red);
+}
+
+[data-ship-id="ship"][data-is-hit="hit"][data-sunk="true"] {
+  background: green;
 }
 
 #footer {

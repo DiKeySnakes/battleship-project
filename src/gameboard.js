@@ -74,12 +74,25 @@ function Gameboard() {
       for (let i = 0; i < fleet.length; i++) {
         if (fleet[i].isSunk() === true) {
           counter++;
+          console.log(fleet[i].coords);
         }
       }
       if (counter === fleet.length) {
         return true;
       }
       return false;
+    },
+
+    getSunkFleet() {
+      const sunkFleetCoords = [];
+      for (let i = 0; i < fleet.length; i++) {
+        if (fleet[i].isSunk() === true) {
+          fleet[i].coords.forEach((coord) => {
+            sunkFleetCoords.push(coord);
+          });
+        }
+      }
+      return sunkFleetCoords;
     },
   };
 }

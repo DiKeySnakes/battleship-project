@@ -16,7 +16,7 @@ function Dom() {
   function buildFleet() {
     ai.createRandomFleet();
     const computerFleet = ai.randomFleet;
-    console.log(computerFleet);
+    console.log("computerFleet:", computerFleet);
     for (let i = 0; i < computerFleet.length; i++) {
       playerComputer.gameboard.placeShip(
         computerFleet[i][0],
@@ -166,7 +166,7 @@ function Dom() {
       placeShipsContainer.style.setProperty("--grid-cols", b);
       for (let c = 0; c < playerComputerBattlefield.length; c++) {
         const cell = document.createElement("div");
-        cell.dataset.id = c;
+        cell.dataset.id = `psc${c}`;
         if (!playerHumanBattlefield[c].isFree) {
           cell.dataset.isFree = "occupied";
         }
@@ -178,7 +178,7 @@ function Dom() {
         }
         placeShipsContainer.appendChild(cell).className = "grid-item";
         cell.addEventListener("mouseover", () => {
-          const start = Number(cell.dataset.id);
+          const start = c;
           if (this.checkCoordIsValid(start, shipLength)) {
             console.log(start);
             cell.dataset.valid = true;
@@ -188,7 +188,7 @@ function Dom() {
           }
         });
         cell.addEventListener("click", () => {
-          const start = Number(cell.dataset.id);
+          const start = c;
           const coords = this.createCoords(start, shipLength);
           playerHuman.gameboard.placeShip(shipLength, coords);
           this.updatePlaceShipContainer();
@@ -236,7 +236,7 @@ function Dom() {
 
     updatePlaceShipContainer() {
       for (let c = 0; c < playerHumanBattlefield.length; c++) {
-        const cell = document.querySelector(`[data-id="${c}"]`);
+        const cell = document.querySelector(`[data-id="psc${c}"]`);
         if (!playerHumanBattlefield[c].isFree) {
           cell.dataset.isFree = "occupied";
         }
@@ -289,12 +289,27 @@ function Dom() {
               "missed shots:",
               playerComputer.gameboard.getMissedShotCounter()
             );
+            const computerSunkFleet = playerComputer.gameboard.getSunkFleet();
+            console.log("computerSunkFleet:", computerSunkFleet);
+            console.log("CCCCCCCC:", c);
+            console.log("Sunk function:", computerSunkFleet.includes(c));
+            if (computerSunkFleet.includes(c)) {
+              cell1.dataset.sunk = "true";
+            }
             playerHuman.turn = false;
             playerComputer.turn = true;
+            if (
+              playerHuman.gameboard.isGameOver() ||
+              playerComputer.gameboard.isGameOver()
+            ) {
+              console.log("GAME OVER");
+              playerHuman.turn = false;
+            }
           }
           if (playerComputer.turn) {
             this.attack();
             this.updateHumanBoard();
+            this.updateComputerBoard();
             playerComputer.turn = false;
             playerHuman.turn = true;
           }
@@ -399,6 +414,7 @@ function Dom() {
     updateHumanBoard() {
       for (let c = 0; c < playerHumanBattlefield.length; c++) {
         const cell = document.querySelector(`[data-id="p${c}"]`);
+        const playerSunkFleet = playerHuman.gameboard.getSunkFleet();
         if (!playerHumanBattlefield[c].isFree) {
           cell.dataset.isFree = "occupied";
         }
@@ -408,7 +424,31 @@ function Dom() {
         if (playerHumanBattlefield[c].shipId) {
           cell.dataset.shipId = "ship";
         }
+        if (playerSunkFleet.includes(c)) {
+          cell.dataset.sunk = "true";
+        }
       }
+      console.log(playerHuman.gameboard.getSunkFleet());
+    },
+
+    updateComputerBoard() {
+      for (let c = 0; c < playerComputerBattlefield.length; c++) {
+        const cell = document.querySelector(`[data-id="${c}"]`);
+        const computerSunkFleet = playerComputer.gameboard.getSunkFleet();
+        if (!playerComputerBattlefield[c].isFree) {
+          cell.dataset.isFree = "occupied";
+        }
+        if (playerComputerBattlefield[c].isHit) {
+          cell.dataset.isHit = "hit";
+        }
+        if (playerComputerBattlefield[c].shipId) {
+          cell.dataset.shipId = "ship";
+        }
+        if (computerSunkFleet.includes(c)) {
+          cell.dataset.sunk = "true";
+        }
+      }
+      console.log(playerComputer.gameboard.getSunkFleet());
     },
   };
 }
