@@ -146,7 +146,7 @@ function Dom() {
       directionMessage.textContent = `Direction: ${directionName}`;
 
       const humanFleet = playerHuman.gameboard.getFleet();
-      console.log(humanFleet);
+      console.log("humanFleet:", humanFleet);
 
       const a = 10;
       const b = 10;
@@ -178,11 +178,13 @@ function Dom() {
         cell.addEventListener("click", () => {
           const start = c;
           const coords = this.createCoords(start, shipLength);
-          playerHuman.gameboard.placeShip(shipLength, coords);
-          this.updatePlaceShipContainer();
-          this.updateHumanBoard();
-          shipName = shipNameQueue.shift();
-          shipLength = shipLengthQueue.shift();
+          if (coords !== undefined) {
+            playerHuman.gameboard.placeShip(shipLength, coords);
+            this.updatePlaceShipContainer();
+            this.updateHumanBoard();
+            shipName = shipNameQueue.shift();
+            shipLength = shipLengthQueue.shift();
+          }
 
           if (direction === 1) {
             directionName = "Vertical";
