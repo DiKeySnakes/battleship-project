@@ -11,9 +11,8 @@
     ></script>
   </head>
   <body>
-    <button data-modal-target="#startGameModal" class="new-book">
-      Open modal
-    </button>
+    <button data-modal-target="#startGameModal" class="btn">Start Game</button>
+    <button data-modal-target="#endGameModal" class="btn">End Game</button>
     <div class="modal" id="startGameModal">
       <div class="modal-header">
         <div class="title">Welcome to battleship game</div>
@@ -25,7 +24,7 @@
       </div>
       <div class="modal-body">
         <div class="modal-buttons">
-          <button data-rotate-button>Change Direction</button>
+          <button data-rotate-button class="btn">Change Direction</button>
         </div>
         <div id="player-place-ships"></div>
       </div>
@@ -38,19 +37,19 @@
           <div class="statistics" id="winner"></div>
           <div class="statistics" id="statistics">
             <div class="statistics" id="playerStatistics">
-              <span class="statistics" id="playerHits"></span>
-              <span class="statistics" id="playerMissedShots"></span>
+              <div class="statistics" id="playerHits"></div>
+              <div class="statistics" id="playerMissedShots"></div>
             </div>
             <div class="" id="computerStatistics">
-              <span class="statistics" id="computerHits"></span>
-              <span class="statistics" id="computerMissedShots"></span>
+              <div class="statistics" id="computerHits"></div>
+              <div class="statistics" id="computerMissedShots"></div>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-body">
         <div class="modal-buttons">
-          <button data-reload-button>New Game</button>
+          <button data-reload-button id="reload" class="btn">New Game</button>
         </div>
       </div>
     </div>

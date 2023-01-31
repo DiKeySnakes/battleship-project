@@ -31,6 +31,7 @@ function Dom() {
   const endGameModal = document.getElementById("endGameModal");
   const openModalButtons = document.querySelectorAll("[data-modal-target]");
   const closeModalButtons = document.querySelectorAll("[data-close-button]");
+  const newGameButton = document.querySelector("[data-reload-button]");
   const shipMessage = document.getElementById("ship");
   const lengthMessage = document.getElementById("length");
   const directionMessage = document.getElementById("direction");
@@ -103,12 +104,11 @@ function Dom() {
     console.log(direction);
   });
 
+  newGameButton.addEventListener("click", () => {
+    window.location.reload();
+  });
+
   const playerHuman = initializedGame.Human;
-  // playerHuman.gameboard.placeShip(2, [55, 65]);
-  // playerHuman.gameboard.placeShip(3, [1, 2, 3]);
-  // playerHuman.gameboard.placeShip(3, [22, 23, 24]);
-  // playerHuman.gameboard.placeShip(5, [50, 60, 70, 80, 90]);
-  // playerHuman.gameboard.placeShip(4, [19, 29, 39, 49]);
 
   const playerComputerBattlefield = playerComputer.gameboard.getBattlefield();
   const playerHumanBattlefield = playerHuman.gameboard.getBattlefield();

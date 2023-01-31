@@ -265,9 +265,21 @@ h2 {
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  color: var(--main-gray);
 }
 
 #winner {
   color: var(--main-gray);
   font-size: 3rem;
+}
+
+#reload {
+  margin-bottom: 3rem;
+}
+
+.btn {
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: #303841;
+  color: #f0f0f0;
 }
