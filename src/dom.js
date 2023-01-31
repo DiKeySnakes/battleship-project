@@ -268,6 +268,7 @@ function Dom() {
           ) {
             console.log("GAME OVER");
             playerHuman.turn = false;
+            this.endGame();
           }
           if (playerHuman.turn) {
             playerComputer.gameboard.receiveAttack(cell1.dataset.id);
@@ -292,18 +293,7 @@ function Dom() {
             ) {
               console.log("GAME OVER");
               playerHuman.turn = false;
-              openModal(endGameModal);
-              const playerHits = playerHuman.gameboard.getHitCounter();
-              const playerMissedShots =
-                playerHuman.gameboard.getMissedShotCounter();
-              const computerHits = playerComputer.gameboard.getHitCounter();
-              const computerMissedShots =
-                playerComputer.gameboard.getMissedShotCounter();
-              winnerMessage.textContent = "Winner";
-              playerHitsMessage.textContent = `Computer hits: ${playerHits}`;
-              playerMissedShotsMessage.textContent = `Computer missed shots: ${playerMissedShots}`;
-              computerHitsMessage.textContent = `Player hits: ${computerHits}`;
-              computerMissedShotsMessage.textContent = `Player missed shots: ${computerMissedShots}`;
+              this.endGame();
             }
           }
           if (playerComputer.turn) {
@@ -329,6 +319,24 @@ function Dom() {
         }
         playerContainer.appendChild(cell2).className = "grid-item";
       }
+    },
+
+    endGame() {
+      openModal(endGameModal);
+      const playerHits = playerHuman.gameboard.getHitCounter();
+      const playerMissedShots = playerHuman.gameboard.getMissedShotCounter();
+      const computerHits = playerComputer.gameboard.getHitCounter();
+      const computerMissedShots =
+        playerComputer.gameboard.getMissedShotCounter();
+      if (playerHuman.gameboard.isGameOver()) {
+        winnerMessage.textContent = "Computer wins";
+      } else {
+        winnerMessage.textContent = "Congratulations! Player wins";
+      }
+      playerHitsMessage.textContent = `Computer hits: ${playerHits}`;
+      playerMissedShotsMessage.textContent = `Computer missed shots: ${playerMissedShots}`;
+      computerHitsMessage.textContent = `Player hits: ${computerHits}`;
+      computerMissedShotsMessage.textContent = `Player missed shots: ${computerMissedShots}`;
     },
 
     randomCoord() {

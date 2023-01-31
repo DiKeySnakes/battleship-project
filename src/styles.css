@@ -259,3 +259,15 @@ h2 {
   opacity: 1;
   pointer-events: all;
 }
+
+.endMessage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+#winner {
+  color: var(--main-gray);
+  font-size: 3rem;
+}
