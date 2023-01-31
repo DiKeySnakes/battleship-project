@@ -1,5 +1,12 @@
 @import "normalize.css";
 
+@font-face {
+  font-family: "Canterbury";
+  src: url("./fonts/Canterbury.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
 :root {
   --grid-cols: 1;
   --grid-rows: 1;
@@ -36,13 +43,15 @@ body {
 
 h1,
 h2 {
-  font-family: "Raleway", sans-serif;
+  /* font-family: "Raleway", sans-serif; */
+  font-family: "Canterbury";
   font-weight: 700;
   text-align: center;
 }
 
 h1 {
-  font-size: 6rem;
+  font-size: 10rem;
+  margin: 0;
   color: var(--main-white);
   text-shadow: var(--main-text-shadow);
 }

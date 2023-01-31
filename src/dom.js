@@ -272,7 +272,7 @@ function Dom() {
             playerHuman.turn = false;
             this.endGame();
           }
-          if (playerHuman.turn) {
+          if (playerHuman.turn && !cell1.dataset.isHit) {
             playerComputer.gameboard.receiveAttack(cell1.dataset.id);
             cell1.dataset.isHit = "hit";
             console.log("hits:", playerComputer.gameboard.getHitCounter());
