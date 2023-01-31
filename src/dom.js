@@ -27,11 +27,20 @@ function Dom() {
 
   buildFleet();
 
+  const startGameModal = document.getElementById("startGameModal");
+  const endGameModal = document.getElementById("endGameModal");
   const openModalButtons = document.querySelectorAll("[data-modal-target]");
   const closeModalButtons = document.querySelectorAll("[data-close-button]");
   const shipMessage = document.getElementById("ship");
   const lengthMessage = document.getElementById("length");
   const directionMessage = document.getElementById("direction");
+  const winnerMessage = document.getElementById("winner");
+  const playerHitsMessage = document.getElementById("playerHits");
+  const computerHitsMessage = document.getElementById("computerHits");
+  const playerMissedShotsMessage = document.getElementById("playerMissedShots");
+  const computerMissedShotsMessage = document.getElementById(
+    "computerMissedShots"
+  );
   const overlay = document.getElementById("overlay");
   const placeShipsContainer = document.getElementById("player-place-ships");
   const rotateButton = document.querySelector("[data-rotate-button]");
@@ -94,33 +103,12 @@ function Dom() {
     console.log(direction);
   });
 
-  // function placeDestroyer() {
-  //   playerComputer.gameboard.placeShip(3, [25, 26, 27]);
-  // }
-  // placeDestroyer();
-  // function placeCarrier() {
-  //   playerComputer.gameboard.placeShip(5, [95, 96, 97, 98, 99]);
-  // }
-  // placeCarrier();
-  // function placeBattleship() {
-  //   playerComputer.gameboard.placeShip(4, [12, 22, 32, 42]);
-  // }
-  // placeBattleship();
-  // function placeSubmarine() {
-  //   playerComputer.gameboard.placeShip(3, [67, 68, 69]);
-  // }
-  // placeSubmarine();
-  // function placePatrolBoat() {
-  //   playerComputer.gameboard.placeShip(2, [60, 70]);
-  // }
-  // placePatrolBoat();
-
   const playerHuman = initializedGame.Human;
-  playerHuman.gameboard.placeShip(2, [55, 65]);
-  playerHuman.gameboard.placeShip(3, [1, 2, 3]);
-  playerHuman.gameboard.placeShip(3, [22, 23, 24]);
-  playerHuman.gameboard.placeShip(5, [50, 60, 70, 80, 90]);
-  playerHuman.gameboard.placeShip(4, [19, 29, 39, 49]);
+  // playerHuman.gameboard.placeShip(2, [55, 65]);
+  // playerHuman.gameboard.placeShip(3, [1, 2, 3]);
+  // playerHuman.gameboard.placeShip(3, [22, 23, 24]);
+  // playerHuman.gameboard.placeShip(5, [50, 60, 70, 80, 90]);
+  // playerHuman.gameboard.placeShip(4, [19, 29, 39, 49]);
 
   const playerComputerBattlefield = playerComputer.gameboard.getBattlefield();
   const playerHumanBattlefield = playerHuman.gameboard.getBattlefield();
@@ -209,8 +197,8 @@ function Dom() {
           console.log(shipName);
           console.log(shipLength);
           console.log("Human fleet length:", humanFleet.length);
-          if (humanFleet.length === 10) {
-            closeModal(modal);
+          if (humanFleet.length === 5) {
+            closeModal(startGameModal);
           }
         });
       }
@@ -250,7 +238,7 @@ function Dom() {
     },
 
     announceShipCreation() {
-      openModal(modal); // eslint-disable-line
+      openModal(startGameModal);
     },
 
     renderBoards() {
@@ -304,6 +292,18 @@ function Dom() {
             ) {
               console.log("GAME OVER");
               playerHuman.turn = false;
+              openModal(endGameModal);
+              const playerHits = playerHuman.gameboard.getHitCounter();
+              const playerMissedShots =
+                playerHuman.gameboard.getMissedShotCounter();
+              const computerHits = playerComputer.gameboard.getHitCounter();
+              const computerMissedShots =
+                playerComputer.gameboard.getMissedShotCounter();
+              winnerMessage.textContent = "Winner";
+              playerHitsMessage.textContent = `Computer hits: ${playerHits}`;
+              playerMissedShotsMessage.textContent = `Computer missed shots: ${playerMissedShots}`;
+              computerHitsMessage.textContent = `Player hits: ${computerHits}`;
+              computerMissedShotsMessage.textContent = `Player missed shots: ${computerMissedShots}`;
             }
           }
           if (playerComputer.turn) {

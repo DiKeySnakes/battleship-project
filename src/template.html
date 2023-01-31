@@ -11,8 +11,10 @@
     ></script>
   </head>
   <body>
-    <button data-modal-target="#modal" class="new-book">Open modal</button>
-    <div class="modal" id="modal">
+    <button data-modal-target="#startGameModal" class="new-book">
+      Open modal
+    </button>
+    <div class="modal" id="startGameModal">
       <div class="modal-header">
         <div class="title">Welcome to battleship game</div>
         <div data-message class="message">
@@ -27,6 +29,31 @@
           <button data-rotate-button>Change Direction</button>
         </div>
         <div id="player-place-ships"></div>
+      </div>
+    </div>
+
+    <div class="modal" id="endGameModal">
+      <div class="modal-header">
+        <div class="title">GAME OVER</div>
+        <div data-message class="message">
+          <p class="statistics" id="winner"></p>
+          <div class="statistics" id="statistics">
+            <div class="statistics" id="playerStatistics">
+              <span class="statistics" id="playerHits"></span>
+              <span class="statistics" id="playerMissedShots"></span>
+            </div>
+            <div class="" id="computerStatistics">
+              <span class="statistics" id="computerHits"></span>
+              <span class="statistics" id="computerMissedShots"></span>
+            </div>
+          </div>
+        </div>
+        <button data-close-button class="close-button">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-buttons">
+          <button data-reload-button>New Game</button>
+        </div>
       </div>
     </div>
 
