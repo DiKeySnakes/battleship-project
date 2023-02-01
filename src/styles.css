@@ -43,7 +43,6 @@ body {
 
 h1,
 h2 {
-  /* font-family: "Raleway", sans-serif; */
   font-family: "Canterbury";
   font-weight: 700;
   text-align: center;
@@ -66,8 +65,15 @@ h2 {
   margin-bottom: 10rem;
 }
 
+.title {
+  margin: 3rem auto;
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--main-gray);
+}
+
 .message {
-  color: #be3144;
+  color: var(--main-gray);
   font-size: 2.5rem;
 }
 
@@ -226,22 +232,6 @@ h2 {
   border-bottom: 0.15rem solid var(--main-black);
 }
 
-.modal-header .title {
-  font-size: 3rem;
-  font-weight: bold;
-  color: #303841;
-  margin-top: 3rem;
-}
-
-.modal-header .close-button {
-  cursor: pointer;
-  border: none;
-  outline: none;
-  background: none;
-  font-size: 2rem;
-  font-weight: bold;
-}
-
 .modal-buttons {
   display: flex;
   justify-content: center;
@@ -280,6 +270,7 @@ h2 {
 #winner {
   color: var(--main-gray);
   font-size: 3rem;
+  margin-bottom: 3rem;
 }
 
 #reload {
@@ -291,4 +282,5 @@ h2 {
   border-radius: 1rem;
   background-color: #303841;
   color: #f0f0f0;
+  cursor: pointer;
 }

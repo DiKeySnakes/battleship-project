@@ -333,7 +333,7 @@ function Dom() {
       if (playerHuman.gameboard.isGameOver()) {
         winnerMessage.textContent = "Computer wins";
       } else {
-        winnerMessage.textContent = "Congratulations! Player wins";
+        winnerMessage.textContent = "Player wins";
       }
       playerHitsMessage.textContent = `Computer hits: ${playerHits}`;
       playerMissedShotsMessage.textContent = `Computer missed shots: ${playerMissedShots}`;
