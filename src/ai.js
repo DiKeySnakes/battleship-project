@@ -18,10 +18,8 @@ function Ai() {
         }
       });
       if (counter === 0) {
-        console.log("false");
         return false;
       }
-      console.log("true");
       return true;
     },
 
@@ -30,7 +28,6 @@ function Ai() {
       if (this.isCrossing(randomFleetCoords, battleship)) {
         return this.createBattleship();
       }
-      console.log(battleship);
       return battleship;
     },
 
@@ -39,7 +36,6 @@ function Ai() {
       if (this.isCrossing(randomFleetCoords, destroyer)) {
         return this.createDestroyer();
       }
-      console.log(destroyer);
       return destroyer;
     },
 
@@ -48,7 +44,6 @@ function Ai() {
       if (this.isCrossing(randomFleetCoords, submarine)) {
         return this.createSubmarine();
       }
-      console.log(submarine);
       return submarine;
     },
 
@@ -57,7 +52,6 @@ function Ai() {
       if (this.isCrossing(randomFleetCoords, patrolBoat)) {
         return this.createPatrolBoat();
       }
-      console.log(patrolBoat);
       return patrolBoat;
     },
 
@@ -67,39 +61,30 @@ function Ai() {
       carrier.forEach((el) => {
         randomFleetCoords.push(el);
       });
-      console.log("first ship:", randomFleetCoords);
 
       const battleship = this.createBattleship();
       randomFleet.push([4, battleship]);
       battleship.forEach((el) => {
         randomFleetCoords.push(el);
       });
-      console.log("Fleet", randomFleet);
-      console.log("randomCoords:", randomFleetCoords);
 
       const destroyer = this.createDestroyer();
       randomFleet.push([3, destroyer]);
       destroyer.forEach((el) => {
         randomFleetCoords.push(el);
       });
-      console.log("Fleet", randomFleet);
-      console.log("randomCoords:", randomFleetCoords);
 
       const submarine = this.createSubmarine();
       randomFleet.push([3, submarine]);
       submarine.forEach((el) => {
         randomFleetCoords.push(el);
       });
-      console.log("Fleet", randomFleet);
-      console.log("randomCoords:", randomFleetCoords);
 
       const patrolBoat = this.createPatrolBoat();
       randomFleet.push([2, patrolBoat]);
       patrolBoat.forEach((el) => {
         randomFleetCoords.push(el);
       });
-      console.log("Fleet", randomFleet);
-      console.log("randomCoords:", randomFleetCoords);
     },
 
     // eslint-disable-next-line consistent-return
@@ -117,7 +102,6 @@ function Ai() {
             coords.push(startingPoint + i * 10);
           }
         }
-        console.log(coords);
         return coords;
       }
       return this.createRandomShipCoords(length);
@@ -134,7 +118,6 @@ function Ai() {
           coords.push(startingPoint + i * 10);
         }
       }
-      console.log(coords);
       return coords;
     },
 
@@ -144,7 +127,6 @@ function Ai() {
       if (!this.isFit(axis, startingPoint, length)) {
         return this.createValidStartingPoint(length);
       }
-      console.log("valid:", axis, startingPoint, length);
       return { axis, startingPoint, length };
     },
 

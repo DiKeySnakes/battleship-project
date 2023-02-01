@@ -74,7 +74,6 @@ function Gameboard() {
       for (let i = 0; i < fleet.length; i++) {
         if (fleet[i].isSunk() === true) {
           counter++;
-          console.log(fleet[i].coords);
         }
       }
       if (counter === fleet.length) {

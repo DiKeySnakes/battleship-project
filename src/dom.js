@@ -16,7 +16,6 @@ function Dom() {
   function buildFleet() {
     ai.createRandomFleet();
     const computerFleet = ai.randomFleet;
-    console.log("computerFleet:", computerFleet);
     for (let i = 0; i < computerFleet.length; i++) {
       playerComputer.gameboard.placeShip(
         computerFleet[i][0],
@@ -55,7 +54,6 @@ function Dom() {
   ];
 
   function changeDirection() {
-    console.log("Change direction!!!");
     if (direction === 0) {
       direction = 1;
       directionMessage.textContent = "Direction: Vertical";
@@ -101,7 +99,6 @@ function Dom() {
 
   rotateButton.addEventListener("click", () => {
     changeDirection();
-    console.log(direction);
   });
 
   newGameButton.addEventListener("click", () => {
@@ -128,8 +125,6 @@ function Dom() {
       shipList.forEach((el) => {
         shipLengthQueue.push(el[1]);
       });
-      console.log(shipNameQueue);
-      console.log(shipLengthQueue);
 
       let shipLength = shipLengthQueue.shift();
       let shipName = shipNameQueue.shift();
@@ -146,7 +141,6 @@ function Dom() {
       directionMessage.textContent = `Direction: ${directionName}`;
 
       const humanFleet = playerHuman.gameboard.getFleet();
-      console.log("humanFleet:", humanFleet);
 
       const a = 10;
       const b = 10;
@@ -168,10 +162,8 @@ function Dom() {
         cell.addEventListener("mouseover", () => {
           const start = c;
           if (this.checkCoordIsValid(start, shipLength)) {
-            console.log(start);
             cell.dataset.valid = true;
           } else {
-            console.log(start);
             cell.dataset.valid = false;
           }
         });
@@ -196,9 +188,6 @@ function Dom() {
           lengthMessage.textContent = `Ship length: ${shipLength} cells`;
           directionMessage.textContent = `Direction: ${directionName}`;
 
-          console.log(shipName);
-          console.log(shipLength);
-          console.log("Human fleet length:", humanFleet.length);
           if (humanFleet.length === 5) {
             closeModal(startGameModal);
           }
@@ -209,10 +198,8 @@ function Dom() {
 
     checkCoordIsValid(start, shipLength) {
       if (ai.isFit(direction, start, shipLength)) {
-        console.log("true");
         return true;
       }
-      console.log("false");
       return false;
     },
 
@@ -268,22 +255,13 @@ function Dom() {
             playerHuman.gameboard.isGameOver() ||
             playerComputer.gameboard.isGameOver()
           ) {
-            console.log("GAME OVER");
             playerHuman.turn = false;
             this.endGame();
           }
           if (playerHuman.turn && !cell1.dataset.isHit) {
             playerComputer.gameboard.receiveAttack(cell1.dataset.id);
             cell1.dataset.isHit = "hit";
-            console.log("hits:", playerComputer.gameboard.getHitCounter());
-            console.log(
-              "missed shots:",
-              playerComputer.gameboard.getMissedShotCounter()
-            );
             const computerSunkFleet = playerComputer.gameboard.getSunkFleet();
-            console.log("computerSunkFleet:", computerSunkFleet);
-            console.log("CCCCCCCC:", c);
-            console.log("Sunk function:", computerSunkFleet.includes(c));
             if (computerSunkFleet.includes(c)) {
               cell1.dataset.sunk = "true";
             }
@@ -293,7 +271,6 @@ function Dom() {
               playerHuman.gameboard.isGameOver() ||
               playerComputer.gameboard.isGameOver()
             ) {
-              console.log("GAME OVER");
               playerHuman.turn = false;
               this.endGame();
             }
@@ -347,11 +324,9 @@ function Dom() {
     },
 
     randomAttack() {
-      console.log("random attack!!!");
       let randomCell = this.randomCoord();
       if (!randomArr.includes(randomCell)) {
         randomArr.push(randomCell);
-        console.log(randomArr);
         if (playerHuman.gameboard.receiveAttack(randomCell)) {
           prevSuccess = true;
           if (!randomArr.includes(randomCell + 1) && randomCell + 1 < 100) {
@@ -366,16 +341,9 @@ function Dom() {
           if (!randomArr.includes(randomCell - 10) && randomCell - 10 >= 0) {
             targetQueue.push(randomCell - 10);
           }
-          console.log(prevSuccess, targetQueue);
         } else {
           prevSuccess = false;
         }
-        console.log("randomCell", randomCell);
-        console.log("computer hits:", playerHuman.gameboard.getHitCounter());
-        console.log(
-          "computer missed shots:",
-          playerHuman.gameboard.getMissedShotCounter()
-        );
       } else {
         randomCell = this.randomCoord();
         this.randomAttack();
@@ -383,10 +351,8 @@ function Dom() {
     },
 
     targetAttack() {
-      console.log("target attack!!!");
       const coord = targetQueue.shift();
       randomArr.push(coord);
-      console.log("coord:", coord);
       if (playerHuman.gameboard.receiveAttack(coord)) {
         prevSuccess = true;
         if (!randomArr.includes(coord + 1) && coord + 1 < 100) {
@@ -401,15 +367,9 @@ function Dom() {
         if (!randomArr.includes(coord - 10) && coord - 10 >= 0) {
           targetQueue.push(coord - 10);
         }
-        console.log(prevSuccess, targetQueue);
       } else {
         prevSuccess = false;
       }
-      console.log("computer hits:", playerHuman.gameboard.getHitCounter());
-      console.log(
-        "computer missed shots:",
-        playerHuman.gameboard.getMissedShotCounter()
-      );
     },
 
     attack() {
@@ -418,7 +378,6 @@ function Dom() {
       } else {
         this.randomAttack();
       }
-      console.log(prevSuccess, targetQueue);
     },
 
     updateHumanBoard() {
@@ -438,7 +397,6 @@ function Dom() {
           cell.dataset.sunk = "true";
         }
       }
-      console.log(playerHuman.gameboard.getSunkFleet());
     },
 
     updateComputerBoard() {
@@ -458,7 +416,6 @@ function Dom() {
           cell.dataset.sunk = "true";
         }
       }
-      console.log(playerComputer.gameboard.getSunkFleet());
     },
   };
 }
