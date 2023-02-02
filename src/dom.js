@@ -1,5 +1,6 @@
 const Game = require("./game");
 const Ai = require("./ai");
+const audioOgg = require("./sounds/audio.ogg");
 
 function Dom() {
   const ai = Ai();
@@ -26,6 +27,7 @@ function Dom() {
 
   buildFleet();
 
+  const muteButton = document.getElementById("mute");
   const startGameModal = document.getElementById("startGameModal");
   const endGameModal = document.getElementById("endGameModal");
   const openModalButtons = document.querySelectorAll("[data-modal-target]");
@@ -103,6 +105,12 @@ function Dom() {
 
   newGameButton.addEventListener("click", () => {
     window.location.reload();
+  });
+
+  const audio = new Audio(audioOgg);
+
+  muteButton.addEventListener("click", () => {
+    audio.pause();
   });
 
   const playerHuman = initializedGame.Human;
@@ -190,6 +198,7 @@ function Dom() {
 
           if (humanFleet.length === 5) {
             closeModal(startGameModal);
+            this.playAudio();
           }
         });
       }
@@ -228,6 +237,11 @@ function Dom() {
 
     announceShipCreation() {
       openModal(startGameModal);
+    },
+
+    playAudio() {
+      audio.play();
+      audio.volume = 0.2;
     },
 
     renderBoards() {
