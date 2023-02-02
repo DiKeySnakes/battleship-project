@@ -28,6 +28,7 @@ function Dom() {
   buildFleet();
 
   const muteButton = document.getElementById("mute");
+  const muteIcon = document.getElementById("mute-icon");
   const startGameModal = document.getElementById("startGameModal");
   const endGameModal = document.getElementById("endGameModal");
   const openModalButtons = document.querySelectorAll("[data-modal-target]");
@@ -110,7 +111,17 @@ function Dom() {
   const audio = new Audio(audioOgg);
 
   muteButton.addEventListener("click", () => {
-    audio.pause();
+    if (muteButton.dataset.paused === "true") {
+      audio.play();
+      muteButton.dataset.paused = "false";
+      muteIcon.classList.remove(`fa-volume-xmark`);
+      muteIcon.classList.add(`fa-volume-high`);
+    } else {
+      audio.pause();
+      muteButton.dataset.paused = "true";
+      muteIcon.classList.remove(`fa-volume-high`);
+      muteIcon.classList.add(`fa-volume-xmark`);
+    }
   });
 
   const playerHuman = initializedGame.Human;
