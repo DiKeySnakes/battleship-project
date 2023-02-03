@@ -1,7 +1,9 @@
+const uniqid = require("uniqid");
+
 function Ship(length, coords) {
   let hits = 0;
   return {
-    id: Date.now() + Math.floor(Math.random() * 100),
+    id: uniqid.time(),
     length: length,
     coords: coords,
 

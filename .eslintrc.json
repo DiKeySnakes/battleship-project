@@ -24,7 +24,8 @@
       "error",
       {
         "devDependencies": ["**/webpack.*.js"]
-      }
+      },
+      { "devDependencies": true }
     ]
   },
   "env": {

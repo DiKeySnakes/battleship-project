@@ -295,7 +295,7 @@ function Dom() {
             this.endGame();
           }
           if (playerHuman.turn && !cell1.dataset.isHit) {
-            playerComputer.gameboard.receiveAttack(cell1.dataset.id);
+            playerComputer.gameboard.receiveAttack(c);
             cell1.dataset.isHit = "hit";
             const computerSunkFleet = playerComputer.gameboard.getSunkFleet();
             if (computerSunkFleet.includes(c)) {
@@ -391,6 +391,9 @@ function Dom() {
     targetAttack() {
       const coord = targetQueue.shift();
       randomArr.push(coord);
+      if (coord === undefined) {
+        this.randomAttack();
+      }
       if (playerHuman.gameboard.receiveAttack(coord)) {
         prevSuccess = true;
         if (!randomArr.includes(coord + 1) && coord + 1 < 100) {
