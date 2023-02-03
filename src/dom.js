@@ -290,6 +290,8 @@ function Dom() {
             if (computerSunkFleet.includes(c)) {
               cell1.dataset.sunk = "true";
             }
+            this.updateHumanBoard();
+            this.updateComputerBoard();
             playerHuman.turn = false;
             playerComputer.turn = true;
             if (

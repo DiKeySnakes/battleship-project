@@ -72,8 +72,8 @@ h2 {
   display: flex;
   text-align: center;
   font-family: "Canterbury";
-  margin: 3rem auto;
-  margin-bottom: 0;
+  /* margin: 3rem auto; */
+  /* margin-bottom: 0; */
   font-size: 4.5rem;
   font-weight: bold;
   color: var(--main-white);
@@ -97,12 +97,15 @@ h2 {
 #computer-battlefield,
 #player-place-ships {
   display: grid;
-  width: 400px;
-  height: 400px;
-  margin: 0 auto;
-  padding: 0;
-  grid-template-rows: repeat(var(--grid-rows), 1fr);
-  grid-template-columns: repeat(var(--grid-cols), 1fr);
+  /* width: 400px; */
+  /* height: 400px; */
+  /* margin: 0 auto; */
+  /* padding: 0; */
+  margin: 2vmin;
+  /* grid-template-rows: repeat(var(--grid-rows), 1fr); */
+  grid-template-rows: repeat(var(--grid-rows), 4.3vmin);
+  /* grid-template-columns: repeat(var(--grid-cols), 1fr); */
+  grid-template-columns: repeat(var(--grid-cols), 4.3vmin);
   border: 2px solid var(--main-gray);
 }
 
@@ -111,17 +114,17 @@ h2 {
   box-shadow: var(--main-box-shadow);
 }
 
-#player-battlefield {
+/* #player-battlefield {
   margin-right: 5rem;
-}
+} */
 
 #computer-battlefield {
-  margin-left: 5rem;
+  /* margin-left: 5rem; */
   cursor: crosshair;
 }
 
 #player-place-ships {
-  margin: 5rem auto;
+  margin: 2vmin;
 }
 
 #player-place-ships [data-valid="true"] {
@@ -224,7 +227,7 @@ h2 {
   border-radius: 1rem;
   z-index: 10;
   background-color: var(--main-blue);
-  width: 500px;
+  /* width: 500px; */
   max-width: 80%;
 }
 
@@ -247,6 +250,9 @@ h2 {
 }
 
 .modal-body {
+  display: grid;
+  align-items: center;
+  justify-content: center;
   padding: 1rem 1.5rem;
   font-size: 1.8rem;
 }
