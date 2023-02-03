@@ -51,9 +51,12 @@ function Dom() {
   const shipList = [
     ["Carrier", 5],
     ["Battleship", 4],
-    ["Destroyer", 3],
+    ["Cruiser", 3],
     ["Submarine", 3],
-    ["Patrol boat", 2],
+    ["Destroyer", 2],
+    ["Patrol boat #1", 1],
+    ["Patrol boat #2", 1],
+    ["Patrol boat #3", 1],
   ];
 
   function changeDirection() {
@@ -156,7 +159,11 @@ function Dom() {
       }
 
       shipMessage.textContent = `Place your ${shipName}`;
-      lengthMessage.textContent = `Ship length: ${shipLength} cells`;
+      if (shipLength === 1) {
+        lengthMessage.textContent = `Ship length: ${shipLength} cell`;
+      } else {
+        lengthMessage.textContent = `Ship length: ${shipLength} cells`;
+      }
       directionMessage.textContent = `Direction: ${directionName}`;
 
       const humanFleet = playerHuman.gameboard.getFleet();
@@ -204,10 +211,14 @@ function Dom() {
           }
 
           shipMessage.textContent = `Place your ${shipName}`;
-          lengthMessage.textContent = `Ship length: ${shipLength} cells`;
+          if (shipLength === 1) {
+            lengthMessage.textContent = `Ship length: ${shipLength} cell`;
+          } else {
+            lengthMessage.textContent = `Ship length: ${shipLength} cells`;
+          }
           directionMessage.textContent = `Direction: ${directionName}`;
 
-          if (humanFleet.length === 5) {
+          if (humanFleet.length === 8) {
             closeModal(startGameModal);
             this.playAudio();
           }

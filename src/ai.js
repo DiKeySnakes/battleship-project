@@ -31,12 +31,12 @@ function Ai() {
       return battleship;
     },
 
-    createDestroyer() {
-      const destroyer = this.createRandomShipCoords(3);
-      if (this.isCrossing(randomFleetCoords, destroyer)) {
-        return this.createDestroyer();
+    createCruiser() {
+      const cruiser = this.createRandomShipCoords(3);
+      if (this.isCrossing(randomFleetCoords, cruiser)) {
+        return this.createCruiser();
       }
-      return destroyer;
+      return cruiser;
     },
 
     createSubmarine() {
@@ -47,12 +47,36 @@ function Ai() {
       return submarine;
     },
 
-    createPatrolBoat() {
-      const patrolBoat = this.createRandomShipCoords(2);
-      if (this.isCrossing(randomFleetCoords, patrolBoat)) {
-        return this.createPatrolBoat();
+    createDestroyer() {
+      const destroyer = this.createRandomShipCoords(2);
+      if (this.isCrossing(randomFleetCoords, destroyer)) {
+        return this.createDestroyer();
       }
-      return patrolBoat;
+      return destroyer;
+    },
+
+    createPatrolBoat1() {
+      const patrolBoat1 = this.createRandomShipCoords(1);
+      if (this.isCrossing(randomFleetCoords, patrolBoat1)) {
+        return this.createPatrolBoat1();
+      }
+      return patrolBoat1;
+    },
+
+    createPatrolBoat2() {
+      const patrolBoat2 = this.createRandomShipCoords(1);
+      if (this.isCrossing(randomFleetCoords, patrolBoat2)) {
+        return this.createPatrolBoat2();
+      }
+      return patrolBoat2;
+    },
+
+    createPatrolBoat3() {
+      const patrolBoat3 = this.createRandomShipCoords(1);
+      if (this.isCrossing(randomFleetCoords, patrolBoat3)) {
+        return this.createPatrolBoat3();
+      }
+      return patrolBoat3;
     },
 
     createRandomFleet() {
@@ -68,9 +92,9 @@ function Ai() {
         randomFleetCoords.push(el);
       });
 
-      const destroyer = this.createDestroyer();
-      randomFleet.push([3, destroyer]);
-      destroyer.forEach((el) => {
+      const cruiser = this.createCruiser();
+      randomFleet.push([3, cruiser]);
+      cruiser.forEach((el) => {
         randomFleetCoords.push(el);
       });
 
@@ -80,9 +104,27 @@ function Ai() {
         randomFleetCoords.push(el);
       });
 
-      const patrolBoat = this.createPatrolBoat();
-      randomFleet.push([2, patrolBoat]);
-      patrolBoat.forEach((el) => {
+      const destroyer = this.createDestroyer();
+      randomFleet.push([2, destroyer]);
+      destroyer.forEach((el) => {
+        randomFleetCoords.push(el);
+      });
+
+      const patrolBoat1 = this.createPatrolBoat1();
+      randomFleet.push([1, patrolBoat1]);
+      patrolBoat1.forEach((el) => {
+        randomFleetCoords.push(el);
+      });
+
+      const patrolBoat2 = this.createPatrolBoat2();
+      randomFleet.push([1, patrolBoat2]);
+      patrolBoat2.forEach((el) => {
+        randomFleetCoords.push(el);
+      });
+
+      const patrolBoat3 = this.createPatrolBoat3();
+      randomFleet.push([1, patrolBoat3]);
+      patrolBoat3.forEach((el) => {
         randomFleetCoords.push(el);
       });
     },
