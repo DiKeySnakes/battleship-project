@@ -15,20 +15,12 @@ module.exports = {
   },
   optimization: {
     minimize: true,
-    minimizer: [
-      new CssMinimizerPlugin(),
-      new TerserPlugin(),
-      new HtmlWebpackPlugin({
-        template: "./src/template.html",
-        minify: {
-          removeAttributeQuotes: true,
-          collapseWhitespace: true,
-          removeComments: true,
-        },
-      }),
-    ],
+    minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/template.html",
+    }),
     new MiniCssExtractPlugin({ filename: "[name].[contenthash].css" }),
     new FaviconsWebpackPlugin({ logo: "./src/logo.svg", inject: true }),
   ],
