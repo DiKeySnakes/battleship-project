@@ -20,7 +20,7 @@ module.exports = {
       template: "./src/template.html",
     }),
     new MiniCssExtractPlugin({ filename: "[name][contenthash].css" }),
-    new FaviconsWebpackPlugin("./src/logo.svg"),
+    new FaviconsWebpackPlugin({ logo: "./src/logo.svg", inject: true }),
   ],
   module: {
     rules: [

@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 
 module.exports = {
   mode: "production",
@@ -27,7 +28,10 @@ module.exports = {
       }),
     ],
   },
-  plugins: [new MiniCssExtractPlugin({ filename: "[name].[contenthash].css" })],
+  plugins: [
+    new MiniCssExtractPlugin({ filename: "[name].[contenthash].css" }),
+    new FaviconsWebpackPlugin({ logo: "./src/logo.svg", inject: true }),
+  ],
   module: {
     rules: [
       {
