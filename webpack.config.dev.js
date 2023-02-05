@@ -1,6 +1,7 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 
 module.exports = {
   mode: "development",
@@ -19,6 +20,7 @@ module.exports = {
       template: "./src/template.html",
     }),
     new MiniCssExtractPlugin({ filename: "[name][contenthash].css" }),
+    new FaviconsWebpackPlugin("./src/logo.svg"),
   ],
   module: {
     rules: [

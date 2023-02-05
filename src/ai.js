@@ -23,108 +23,132 @@ function Ai() {
       return true;
     },
 
+    createCarrier() {
+      const data = this.createRandomShipCoords(5);
+      const carrier = data[0];
+      const direction = data[1];
+      if (this.isCrossing(randomFleetCoords, carrier)) {
+        return this.createCarrier();
+      }
+      return [carrier, direction];
+    },
+
     createBattleship() {
-      const battleship = this.createRandomShipCoords(4);
+      const data = this.createRandomShipCoords(4);
+      const battleship = data[0];
+      const direction = data[1];
       if (this.isCrossing(randomFleetCoords, battleship)) {
         return this.createBattleship();
       }
-      return battleship;
+      return [battleship, direction];
     },
 
     createCruiser() {
-      const cruiser = this.createRandomShipCoords(3);
+      const data = this.createRandomShipCoords(3);
+      const cruiser = data[0];
+      const direction = data[1];
       if (this.isCrossing(randomFleetCoords, cruiser)) {
         return this.createCruiser();
       }
-      return cruiser;
+      return [cruiser, direction];
     },
 
     createSubmarine() {
-      const submarine = this.createRandomShipCoords(3);
+      const data = this.createRandomShipCoords(3);
+      const submarine = data[0];
+      const direction = data[1];
       if (this.isCrossing(randomFleetCoords, submarine)) {
         return this.createSubmarine();
       }
-      return submarine;
+      return [submarine, direction];
     },
 
     createDestroyer() {
-      const destroyer = this.createRandomShipCoords(2);
+      const data = this.createRandomShipCoords(2);
+      const destroyer = data[0];
+      const direction = data[1];
       if (this.isCrossing(randomFleetCoords, destroyer)) {
         return this.createDestroyer();
       }
-      return destroyer;
+      return [destroyer, direction];
     },
 
     createPatrolBoat1() {
-      const patrolBoat1 = this.createRandomShipCoords(1);
+      const data = this.createRandomShipCoords(1);
+      const patrolBoat1 = data[0];
+      const direction = data[1];
       if (this.isCrossing(randomFleetCoords, patrolBoat1)) {
         return this.createPatrolBoat1();
       }
-      return patrolBoat1;
+      return [patrolBoat1, direction];
     },
 
     createPatrolBoat2() {
-      const patrolBoat2 = this.createRandomShipCoords(1);
+      const data = this.createRandomShipCoords(1);
+      const patrolBoat2 = data[0];
+      const direction = data[1];
       if (this.isCrossing(randomFleetCoords, patrolBoat2)) {
         return this.createPatrolBoat2();
       }
-      return patrolBoat2;
+      return [patrolBoat2, direction];
     },
 
     createPatrolBoat3() {
-      const patrolBoat3 = this.createRandomShipCoords(1);
+      const data = this.createRandomShipCoords(1);
+      const patrolBoat3 = data[0];
+      const direction = data[1];
       if (this.isCrossing(randomFleetCoords, patrolBoat3)) {
         return this.createPatrolBoat3();
       }
-      return patrolBoat3;
+      return [patrolBoat3, direction];
     },
 
     createRandomFleet() {
-      const carrier = this.createRandomShipCoords(5);
-      randomFleet.push([5, carrier]);
-      carrier.forEach((el) => {
+      const carrier = this.createCarrier();
+      randomFleet.push([5, carrier[0], carrier[1]]);
+      carrier[0].forEach((el) => {
         randomFleetCoords.push(el);
       });
 
       const battleship = this.createBattleship();
-      randomFleet.push([4, battleship]);
-      battleship.forEach((el) => {
+      randomFleet.push([4, battleship[0], battleship[1]]);
+      battleship[0].forEach((el) => {
         randomFleetCoords.push(el);
       });
 
       const cruiser = this.createCruiser();
-      randomFleet.push([3, cruiser]);
-      cruiser.forEach((el) => {
+      randomFleet.push([3, cruiser[0], cruiser[1]]);
+      cruiser[0].forEach((el) => {
         randomFleetCoords.push(el);
       });
 
       const submarine = this.createSubmarine();
-      randomFleet.push([3, submarine]);
-      submarine.forEach((el) => {
+      randomFleet.push([3, submarine[0], submarine[1]]);
+      submarine[0].forEach((el) => {
         randomFleetCoords.push(el);
       });
 
       const destroyer = this.createDestroyer();
-      randomFleet.push([2, destroyer]);
-      destroyer.forEach((el) => {
+      randomFleet.push([2, destroyer[0], destroyer[1]]);
+      destroyer[0].forEach((el) => {
         randomFleetCoords.push(el);
       });
 
       const patrolBoat1 = this.createPatrolBoat1();
-      randomFleet.push([1, patrolBoat1]);
-      patrolBoat1.forEach((el) => {
+      randomFleet.push([1, patrolBoat1[0], patrolBoat1[1]]);
+      patrolBoat1[0].forEach((el) => {
         randomFleetCoords.push(el);
       });
 
       const patrolBoat2 = this.createPatrolBoat2();
-      randomFleet.push([1, patrolBoat2]);
-      patrolBoat2.forEach((el) => {
+      randomFleet.push([1, patrolBoat2[0], patrolBoat2[1]]);
+      patrolBoat2[0].forEach((el) => {
         randomFleetCoords.push(el);
       });
 
       const patrolBoat3 = this.createPatrolBoat3();
-      randomFleet.push([1, patrolBoat3]);
-      patrolBoat3.forEach((el) => {
+      randomFleet.push([1, patrolBoat3[0], patrolBoat3[1]]);
+      patrolBoat3[0].forEach((el) => {
         randomFleetCoords.push(el);
       });
     },
@@ -144,7 +168,7 @@ function Ai() {
             coords.push(startingPoint + i * 10);
           }
         }
-        return coords;
+        return [coords, axis];
       }
       return this.createRandomShipCoords(length);
     },

@@ -20,7 +20,8 @@ function Dom() {
     for (let i = 0; i < computerFleet.length; i++) {
       playerComputer.gameboard.placeShip(
         computerFleet[i][0],
-        computerFleet[i][1]
+        computerFleet[i][1],
+        computerFleet[i][2]
       );
     }
   }
@@ -184,6 +185,17 @@ function Dom() {
         if (playerHumanBattlefield[c].shipId) {
           cell.dataset.shipId = "ship";
         }
+        if (playerHumanBattlefield[c].shipDirection) {
+          cell.dataset.shipDirection = "vertical";
+        } else {
+          cell.dataset.shipDirection = "horizontal";
+        }
+        if (playerHumanBattlefield[c].shipStart === c) {
+          cell.dataset.shipStart = "true";
+        }
+        if (playerHumanBattlefield[c].shipEnd === c) {
+          cell.dataset.shipEnd = "true";
+        }
         placeShipsContainer.appendChild(cell).className = "grid-item";
         cell.addEventListener("mouseover", () => {
           const start = c;
@@ -195,9 +207,10 @@ function Dom() {
         });
         cell.addEventListener("click", () => {
           const start = c;
-          const coords = this.createCoords(start, shipLength);
+          const coords = this.createCoords(start, shipLength)[0];
+          const direction = this.createCoords(start, shipLength)[1];
           if (coords !== undefined) {
-            playerHuman.gameboard.placeShip(shipLength, coords);
+            playerHuman.gameboard.placeShip(shipLength, coords, direction);
             this.updatePlaceShipContainer();
             this.updateHumanBoard();
             shipName = shipNameQueue.shift();
@@ -239,7 +252,7 @@ function Dom() {
       if (this.checkCoordIsValid(start, shipLength)) {
         coords = ai.createShipCoords(direction, start, shipLength);
       }
-      return coords;
+      return [coords, direction];
     },
 
     updatePlaceShipContainer() {
@@ -253,6 +266,17 @@ function Dom() {
         }
         if (playerHumanBattlefield[c].shipId) {
           cell.dataset.shipId = "ship";
+        }
+        if (playerHumanBattlefield[c].shipDirection) {
+          cell.dataset.shipDirection = "vertical";
+        } else {
+          cell.dataset.shipDirection = "horizontal";
+        }
+        if (playerHumanBattlefield[c].shipStart === c) {
+          cell.dataset.shipStart = "true";
+        }
+        if (playerHumanBattlefield[c].shipEnd === c) {
+          cell.dataset.shipEnd = "true";
         }
       }
     },
@@ -284,6 +308,17 @@ function Dom() {
         }
         if (playerComputerBattlefield[c].shipId) {
           cell1.dataset.shipId = "ship";
+        }
+        if (playerComputerBattlefield[c].shipDirection) {
+          cell1.dataset.shipDirection = "vertical";
+        } else {
+          cell1.dataset.shipDirection = "horizontal";
+        }
+        if (playerComputerBattlefield[c].shipStart === c) {
+          cell1.dataset.shipStart = "true";
+        }
+        if (playerComputerBattlefield[c].shipEnd === c) {
+          cell1.dataset.shipEnd = "true";
         }
         computerContainer.appendChild(cell1).className = "grid-item";
         cell1.addEventListener("click", () => {
@@ -333,6 +368,17 @@ function Dom() {
         }
         if (playerHumanBattlefield[c].shipId) {
           cell2.dataset.shipId = "ship";
+        }
+        if (playerHumanBattlefield[c].shipDirection) {
+          cell2.dataset.shipDirection = "vertical";
+        } else {
+          cell2.dataset.shipDirection = "horizontal";
+        }
+        if (playerHumanBattlefield[c].shipStart === c) {
+          cell2.dataset.shipStart = "true";
+        }
+        if (playerHumanBattlefield[c].shipEnd === c) {
+          cell2.dataset.shipEnd = "true";
         }
         playerContainer.appendChild(cell2).className = "grid-item";
       }
@@ -390,10 +436,10 @@ function Dom() {
 
     targetAttack() {
       const coord = targetQueue.shift();
-      randomArr.push(coord);
       if (coord === undefined) {
         this.randomAttack();
       }
+      randomArr.push(coord);
       if (playerHuman.gameboard.receiveAttack(coord)) {
         prevSuccess = true;
         if (!randomArr.includes(coord + 1) && coord + 1 < 100) {
@@ -437,6 +483,17 @@ function Dom() {
         if (playerSunkFleet.includes(c)) {
           cell.dataset.sunk = "true";
         }
+        if (playerHumanBattlefield[c].shipDirection) {
+          cell.dataset.shipDirection = "vertical";
+        } else {
+          cell.dataset.shipDirection = "horizontal";
+        }
+        if (playerHumanBattlefield[c].shipStart === c) {
+          cell.dataset.shipStart = "true";
+        }
+        if (playerHumanBattlefield[c].shipEnd === c) {
+          cell.dataset.shipEnd = "true";
+        }
       }
     },
 
@@ -455,6 +512,17 @@ function Dom() {
         }
         if (computerSunkFleet.includes(c)) {
           cell.dataset.sunk = "true";
+        }
+        if (playerComputerBattlefield[c].shipDirection) {
+          cell.dataset.shipDirection = "vertical";
+        } else {
+          cell.dataset.shipDirection = "horizontal";
+        }
+        if (playerComputerBattlefield[c].shipStart === c) {
+          cell.dataset.shipStart = "true";
+        }
+        if (playerComputerBattlefield[c].shipEnd === c) {
+          cell.dataset.shipEnd = "true";
         }
       }
     },

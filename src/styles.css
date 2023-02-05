@@ -72,8 +72,6 @@ h2 {
   display: flex;
   text-align: center;
   font-family: "Canterbury";
-  /* margin: 3rem auto; */
-  /* margin-bottom: 0; */
   font-size: 4.5rem;
   font-weight: bold;
   color: var(--main-white);
@@ -97,14 +95,8 @@ h2 {
 #computer-battlefield,
 #player-place-ships {
   display: grid;
-  /* width: 400px; */
-  /* height: 400px; */
-  /* margin: 0 auto; */
-  /* padding: 0; */
   margin: 2vmin;
-  /* grid-template-rows: repeat(var(--grid-rows), 1fr); */
   grid-template-rows: repeat(var(--grid-rows), 4.3vmin);
-  /* grid-template-columns: repeat(var(--grid-cols), 1fr); */
   grid-template-columns: repeat(var(--grid-cols), 4.3vmin);
   border: 2px solid var(--main-gray);
 }
@@ -114,12 +106,7 @@ h2 {
   box-shadow: var(--main-box-shadow);
 }
 
-/* #player-battlefield {
-  margin-right: 5rem;
-} */
-
 #computer-battlefield {
-  /* margin-left: 5rem; */
   cursor: crosshair;
 }
 
@@ -136,7 +123,7 @@ h2 {
 }
 
 #player-place-ships [data-valid="true"]:hover {
-  background-color: var(--main-light-gray);
+  background-color: var(--main-light-green);
 }
 
 #player-place-ships [data-ship-id="ship"] {
@@ -147,6 +134,44 @@ h2 {
 #player-place-ships [data-ship-id="ship"]:hover {
   background: var(--main-light-gray);
   cursor: not-allowed;
+}
+
+#player-place-ships [data-ship-id="ship"][data-ship-direction="horizontal"] {
+  border-bottom: 2px solid white;
+  border-top: 2px solid white;
+}
+
+#player-place-ships [data-ship-id="ship"][data-ship-direction="vertical"] {
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+}
+
+#player-place-ships
+  [data-ship-id="ship"][data-ship-direction="vertical"][data-ship-start="true"] {
+  border-top: 2px solid white;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+
+#player-place-ships
+  [data-ship-id="ship"][data-ship-direction="vertical"][data-ship-end="true"] {
+  border-bottom: 2px solid white;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+#player-place-ships
+  [data-ship-id="ship"][data-ship-direction="horizontal"][data-ship-start="true"] {
+  border-left: 2px solid white;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+#player-place-ships
+  [data-ship-id="ship"][data-ship-direction="horizontal"][data-ship-end="true"] {
+  border-right: 2px solid white;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
 }
 
 .grid-item {
@@ -170,7 +195,7 @@ h2 {
 }
 
 [data-is-hit="hit"] {
-  background: var(--main-light-blue);
+  background: transparent;
 }
 
 [data-ship-id="ship"][data-is-hit="hit"] {
@@ -227,7 +252,6 @@ h2 {
   border-radius: 1rem;
   z-index: 10;
   background-color: var(--main-blue);
-  /* width: 500px; */
   max-width: 80%;
 }
 
@@ -316,4 +340,76 @@ h2 {
 
 #mute:active {
   transform: scale(0.8);
+}
+
+[data-sunk="true"][data-ship-direction="horizontal"] {
+  border-bottom: 2px solid white;
+  border-top: 2px solid white;
+}
+
+[data-sunk="true"][data-ship-direction="vertical"] {
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+}
+
+[data-sunk="true"][data-ship-direction="vertical"][data-ship-start="true"] {
+  border-top: 2px solid white;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+
+[data-sunk="true"][data-ship-direction="vertical"][data-ship-end="true"] {
+  border-bottom: 2px solid white;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+[data-sunk="true"][data-ship-direction="horizontal"][data-ship-start="true"] {
+  border-left: 2px solid white;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+[data-sunk="true"][data-ship-direction="horizontal"][data-ship-end="true"] {
+  border-right: 2px solid white;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+#player-battlefield [data-ship-id="ship"][data-ship-direction="horizontal"] {
+  border-bottom: 2px solid white;
+  border-top: 2px solid white;
+}
+
+#player-battlefield [data-ship-id="ship"][data-ship-direction="vertical"] {
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+}
+
+#player-battlefield
+  [data-ship-id="ship"][data-ship-direction="vertical"][data-ship-start="true"] {
+  border-top: 2px solid white;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+
+#player-battlefield
+  [data-ship-id="ship"][data-ship-direction="vertical"][data-ship-end="true"] {
+  border-bottom: 2px solid white;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+#player-battlefield
+  [data-ship-id="ship"][data-ship-direction="horizontal"][data-ship-start="true"] {
+  border-left: 2px solid white;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+#player-battlefield
+  [data-ship-id="ship"][data-ship-direction="horizontal"][data-ship-end="true"] {
+  border-right: 2px solid white;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
 }

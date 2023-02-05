@@ -12,6 +12,9 @@ function Gameboard() {
         isFree: true,
         isHit: false,
         shipId: null,
+        shipDirection: null,
+        shipStart: null,
+        shipEnd: null,
       };
     },
 
@@ -22,14 +25,17 @@ function Gameboard() {
       return battlefield;
     },
 
-    placeShip(length, coords) {
-      const newShip = Ship(length, coords);
+    placeShip(length, coords, directions) {
+      const newShip = Ship(length, coords, directions);
       fleet.push(newShip);
 
       const cells = coords;
       cells.forEach((element) => {
         battlefield[element].isFree = false;
         battlefield[element].shipId = newShip.id;
+        battlefield[element].shipDirection = newShip.direction;
+        battlefield[element].shipStart = newShip.start;
+        battlefield[element].shipEnd = newShip.end;
       });
       return battlefield;
     },
