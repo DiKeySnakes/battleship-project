@@ -32,8 +32,6 @@ function Dom() {
   const muteIcon = document.getElementById("mute-icon");
   const startGameModal = document.getElementById("startGameModal");
   const endGameModal = document.getElementById("endGameModal");
-  const openModalButtons = document.querySelectorAll("[data-modal-target]");
-  const closeModalButtons = document.querySelectorAll("[data-close-button]");
   const newGameButton = document.querySelector("[data-reload-button]");
   const shipMessage = document.getElementById("ship");
   const lengthMessage = document.getElementById("length");
@@ -81,27 +79,6 @@ function Dom() {
     modal.classList.remove("active");
     overlay.classList.remove("active");
   }
-
-  openModalButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const modal = document.querySelector(button.dataset.modalTarget);
-      openModal(modal);
-    });
-  });
-
-  overlay.addEventListener("click", () => {
-    const modals = document.querySelectorAll(".modal.active");
-    modals.forEach((modal) => {
-      closeModal(modal);
-    });
-  });
-
-  closeModalButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const modal = button.closest(".modal");
-      closeModal(modal);
-    });
-  });
 
   rotateButton.addEventListener("click", () => {
     changeDirection();
