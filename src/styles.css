@@ -44,21 +44,21 @@ body {
   background-size: cover;
 }
 
-h1,
-h2 {
+.welcome-title,
+.welcome-motto {
   font-family: "Canterbury";
   font-weight: 700;
   text-align: center;
 }
 
-h1 {
+.welcome-title {
   font-size: 10rem;
   margin: 0;
   color: var(--main-white);
   text-shadow: var(--main-text-shadow);
 }
 
-h2 {
+.welcome-motto {
   font-size: 4.2rem;
   color: var(--main-white);
   text-shadow: var(--main-text-shadow);
@@ -84,7 +84,30 @@ h2 {
   font-size: 2.5rem;
 }
 
+#main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.compensator {
+  font-size: 3rem;
+  padding: 0.5em 1em;
+  color: var(--main-white);
+  text-shadow: var(--main-text-shadow);
+}
+
 .battlefields-container {
+  width: 70vw;
+  justify-self: center;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
