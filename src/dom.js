@@ -55,9 +55,8 @@ function Dom() {
     ["Cruiser", 3],
     ["Submarine", 3],
     ["Destroyer", 2],
-    ["Patrol boat #1", 1],
-    ["Patrol boat #2", 1],
-    ["Patrol boat #3", 1],
+    ["Patrol boat #1", 2],
+    ["Patrol boat #2", 2],
   ];
 
   function changeDirection() {
@@ -231,7 +230,7 @@ function Dom() {
           }
           directionMessage.textContent = `Direction: ${directionName}`;
 
-          if (humanFleet.length === 8) {
+          if (humanFleet.length === 7) {
             closeModal(startGameModal);
             this.playAudio();
           }

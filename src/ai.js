@@ -74,7 +74,7 @@ function Ai() {
     },
 
     createPatrolBoat1() {
-      const data = this.createRandomShipCoords(1);
+      const data = this.createRandomShipCoords(2);
       const patrolBoat1 = data[0];
       const direction = data[1];
       if (this.isCrossing(randomFleetCoords, patrolBoat1)) {
@@ -84,23 +84,13 @@ function Ai() {
     },
 
     createPatrolBoat2() {
-      const data = this.createRandomShipCoords(1);
+      const data = this.createRandomShipCoords(2);
       const patrolBoat2 = data[0];
       const direction = data[1];
       if (this.isCrossing(randomFleetCoords, patrolBoat2)) {
         return this.createPatrolBoat2();
       }
       return [patrolBoat2, direction];
-    },
-
-    createPatrolBoat3() {
-      const data = this.createRandomShipCoords(1);
-      const patrolBoat3 = data[0];
-      const direction = data[1];
-      if (this.isCrossing(randomFleetCoords, patrolBoat3)) {
-        return this.createPatrolBoat3();
-      }
-      return [patrolBoat3, direction];
     },
 
     createRandomFleet() {
@@ -135,20 +125,14 @@ function Ai() {
       });
 
       const patrolBoat1 = this.createPatrolBoat1();
-      randomFleet.push([1, patrolBoat1[0], patrolBoat1[1]]);
+      randomFleet.push([2, patrolBoat1[0], patrolBoat1[1]]);
       patrolBoat1[0].forEach((el) => {
         randomFleetCoords.push(el);
       });
 
       const patrolBoat2 = this.createPatrolBoat2();
-      randomFleet.push([1, patrolBoat2[0], patrolBoat2[1]]);
+      randomFleet.push([2, patrolBoat2[0], patrolBoat2[1]]);
       patrolBoat2[0].forEach((el) => {
-        randomFleetCoords.push(el);
-      });
-
-      const patrolBoat3 = this.createPatrolBoat3();
-      randomFleet.push([1, patrolBoat3[0], patrolBoat3[1]]);
-      patrolBoat3[0].forEach((el) => {
         randomFleetCoords.push(el);
       });
     },
