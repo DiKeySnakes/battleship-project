@@ -6,8 +6,11 @@ const audioMp3 = require("./sounds/audio.mp3");
 function Dom() {
   const ai = Ai();
   let prevSuccess = false;
-  const targetQueue = [];
+  let targetQueue = [];
   const randomArr = [];
+  const openingArray = [
+    37, 26, 73, 62, 66, 33, 55, 59, 40, 95, 4, 44, 80, 91, 8, 19, 99, 0,
+  ];
   const playerFleetArr = [];
   const playerContainer = document.querySelector("#player-battlefield");
   const computerContainer = document.querySelector("#computer-battlefield");
@@ -15,6 +18,10 @@ function Dom() {
   const newGame = Game();
   const initializedGame = newGame.initNewGame();
   const playerComputer = initializedGame.Computer;
+
+  let openingQueue = openingArray.sort(function () {
+    return Math.random() - 0.5;
+  });
 
   function buildFleet() {
     ai.createRandomFleet();
@@ -390,22 +397,40 @@ function Dom() {
     },
 
     randomAttack() {
+      console.log("Random attack!!!");
       let randomCell = this.randomCoord();
       if (!randomArr.includes(randomCell)) {
         randomArr.push(randomCell);
         if (playerHuman.gameboard.receiveAttack(randomCell)) {
           prevSuccess = true;
-          if (!randomArr.includes(randomCell + 1) && randomCell + 1 < 100) {
-            targetQueue.push(randomCell + 1);
-          }
-          if (!randomArr.includes(randomCell - 1) && randomCell - 1 >= 0) {
-            targetQueue.push(randomCell - 1);
-          }
-          if (!randomArr.includes(randomCell + 10) && randomCell + 10 < 100) {
-            targetQueue.push(randomCell + 10);
-          }
-          if (!randomArr.includes(randomCell - 10) && randomCell - 10 >= 0) {
-            targetQueue.push(randomCell - 10);
+          const cell = playerHuman.gameboard.getBattlefield()[randomCell];
+          const sunkFleet = playerHuman.gameboard.getSunkFleet();
+          console.log("shipDirection:", cell.shipDirection);
+          console.log("sunkFleet:", sunkFleet);
+          if (!sunkFleet.includes(randomCell)) {
+            if (cell.shipDirection === 0) {
+              if (!randomArr.includes(randomCell + 1) && randomCell + 1 < 100) {
+                targetQueue.push(randomCell + 1);
+              }
+              if (!randomArr.includes(randomCell - 1) && randomCell - 1 >= 0) {
+                targetQueue.push(randomCell - 1);
+              }
+            } else {
+              if (
+                !randomArr.includes(randomCell + 10) &&
+                randomCell + 10 < 100
+              ) {
+                targetQueue.push(randomCell + 10);
+              }
+              if (
+                !randomArr.includes(randomCell - 10) &&
+                randomCell - 10 >= 0
+              ) {
+                targetQueue.push(randomCell - 10);
+              }
+            }
+          } else {
+            targetQueue = [];
           }
         } else {
           prevSuccess = false;
@@ -414,38 +439,105 @@ function Dom() {
         randomCell = this.randomCoord();
         this.randomAttack();
       }
+      console.log("targetQueue random:", targetQueue);
     },
 
     targetAttack() {
+      console.log("Target attack!!!");
+      console.log(targetQueue);
       const coord = targetQueue.shift();
+      console.log("target attack coord:", coord);
       if (coord === undefined) {
         this.randomAttack();
       }
       randomArr.push(coord);
       if (playerHuman.gameboard.receiveAttack(coord)) {
         prevSuccess = true;
-        if (!randomArr.includes(coord + 1) && coord + 1 < 100) {
-          targetQueue.push(coord + 1);
-        }
-        if (!randomArr.includes(coord - 1) && coord - 1 >= 0) {
-          targetQueue.push(coord - 1);
-        }
-        if (!randomArr.includes(coord + 10) && coord + 10 < 100) {
-          targetQueue.push(coord + 10);
-        }
-        if (!randomArr.includes(coord - 10) && coord - 10 >= 0) {
-          targetQueue.push(coord - 10);
+        const cell = playerHuman.gameboard.getBattlefield()[coord];
+        const sunkFleet = playerHuman.gameboard.getSunkFleet();
+        console.log("shipDirection:", cell.shipDirection);
+        console.log("sunkFleet:", sunkFleet);
+        if (!sunkFleet.includes(coord)) {
+          if (cell.shipDirection === 0) {
+            if (!randomArr.includes(coord + 1) && coord + 1 < 100) {
+              targetQueue.push(coord + 1);
+            }
+            if (!randomArr.includes(coord - 1) && coord - 1 >= 0) {
+              targetQueue.push(coord - 1);
+            }
+          } else {
+            if (!randomArr.includes(coord + 10) && coord + 10 < 100) {
+              targetQueue.push(coord + 10);
+            }
+            if (!randomArr.includes(coord - 10) && coord - 10 >= 0) {
+              targetQueue.push(coord - 10);
+            }
+          }
+        } else {
+          targetQueue = [];
         }
       } else {
         prevSuccess = false;
       }
+      console.log("targetQueue target:", targetQueue);
+    },
+
+    openingAttack() {
+      console.log("Opening attack!!!");
+      console.log(openingQueue);
+      const coord = openingQueue.shift();
+      console.log("opening attack coord:", coord);
+      if (coord === undefined) {
+        this.randomAttack();
+      }
+      if (!randomArr.includes(coord)) {
+        randomArr.push(coord);
+        if (playerHuman.gameboard.receiveAttack(coord)) {
+          prevSuccess = true;
+          const cell = playerHuman.gameboard.getBattlefield()[coord];
+          const sunkFleet = playerHuman.gameboard.getSunkFleet();
+          console.log("shipDirection:", cell.shipDirection);
+          console.log("sunkFleet:", sunkFleet);
+          if (!sunkFleet.includes(coord)) {
+            if (cell.shipDirection === 0) {
+              if (!randomArr.includes(coord + 1) && coord + 1 < 100) {
+                targetQueue.push(coord + 1);
+              }
+              if (!randomArr.includes(coord - 1) && coord - 1 >= 0) {
+                targetQueue.push(coord - 1);
+              }
+            } else {
+              if (!randomArr.includes(coord + 10) && coord + 10 < 100) {
+                targetQueue.push(coord + 10);
+              }
+              if (!randomArr.includes(coord - 10) && coord - 10 >= 0) {
+                targetQueue.push(coord - 10);
+              }
+            }
+          } else {
+            targetQueue = [];
+          }
+        } else {
+          prevSuccess = false;
+        }
+      } else {
+        this.openingAttack();
+      }
+      console.log("targetQueue target:", targetQueue);
     },
 
     attack() {
-      if (prevSuccess || targetQueue.length !== 0) {
+      if (
+        (prevSuccess && targetQueue.length !== 0) ||
+        targetQueue.length !== 0
+      ) {
         this.targetAttack();
       } else {
-        this.randomAttack();
+        if (openingQueue.length !== 0) {
+          this.openingAttack();
+        } else {
+          this.randomAttack();
+        }
       }
     },
 
