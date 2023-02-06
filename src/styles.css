@@ -356,8 +356,7 @@ body {
   border-radius: 0.2em;
 }
 
-.btn:hover,
-.btn:focus {
+.btn:hover {
   background-color: hsla(210, 15%, 30%, 1);
 }
 

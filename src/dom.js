@@ -8,6 +8,7 @@ function Dom() {
   let prevSuccess = false;
   const targetQueue = [];
   const randomArr = [];
+  const playerFleetArr = [];
   const playerContainer = document.querySelector("#player-battlefield");
   const computerContainer = document.querySelector("#computer-battlefield");
 
@@ -187,8 +188,11 @@ function Dom() {
           const start = c;
           const coords = this.createCoords(start, shipLength)[0];
           const direction = this.createCoords(start, shipLength)[1];
-          if (coords !== undefined) {
+          if (coords !== undefined && !ai.isCrossing(playerFleetArr, coords)) {
             playerHuman.gameboard.placeShip(shipLength, coords, direction);
+            coords.forEach((el) => {
+              playerFleetArr.push(el);
+            });
             this.updatePlaceShipContainer();
             this.updateHumanBoard();
             shipName = shipNameQueue.shift();
