@@ -397,7 +397,6 @@ function Dom() {
     },
 
     randomAttack() {
-      console.log("Random attack!!!");
       let randomCell = this.randomCoord();
       if (!randomArr.includes(randomCell)) {
         randomArr.push(randomCell);
@@ -405,8 +404,6 @@ function Dom() {
           prevSuccess = true;
           const cell = playerHuman.gameboard.getBattlefield()[randomCell];
           const sunkFleet = playerHuman.gameboard.getSunkFleet();
-          console.log("shipDirection:", cell.shipDirection);
-          console.log("sunkFleet:", sunkFleet);
           if (!sunkFleet.includes(randomCell)) {
             if (cell.shipDirection === 0) {
               if (!randomArr.includes(randomCell + 1) && randomCell + 1 < 100) {
@@ -439,14 +436,10 @@ function Dom() {
         randomCell = this.randomCoord();
         this.randomAttack();
       }
-      console.log("targetQueue random:", targetQueue);
     },
 
     targetAttack() {
-      console.log("Target attack!!!");
-      console.log(targetQueue);
       const coord = targetQueue.shift();
-      console.log("target attack coord:", coord);
       if (coord === undefined) {
         this.randomAttack();
       }
@@ -455,8 +448,6 @@ function Dom() {
         prevSuccess = true;
         const cell = playerHuman.gameboard.getBattlefield()[coord];
         const sunkFleet = playerHuman.gameboard.getSunkFleet();
-        console.log("shipDirection:", cell.shipDirection);
-        console.log("sunkFleet:", sunkFleet);
         if (!sunkFleet.includes(coord)) {
           if (cell.shipDirection === 0) {
             if (!randomArr.includes(coord + 1) && coord + 1 < 100) {
@@ -479,14 +470,10 @@ function Dom() {
       } else {
         prevSuccess = false;
       }
-      console.log("targetQueue target:", targetQueue);
     },
 
     openingAttack() {
-      console.log("Opening attack!!!");
-      console.log(openingQueue);
       const coord = openingQueue.shift();
-      console.log("opening attack coord:", coord);
       if (coord === undefined) {
         this.randomAttack();
       }
@@ -496,8 +483,6 @@ function Dom() {
           prevSuccess = true;
           const cell = playerHuman.gameboard.getBattlefield()[coord];
           const sunkFleet = playerHuman.gameboard.getSunkFleet();
-          console.log("shipDirection:", cell.shipDirection);
-          console.log("sunkFleet:", sunkFleet);
           if (!sunkFleet.includes(coord)) {
             if (cell.shipDirection === 0) {
               if (!randomArr.includes(coord + 1) && coord + 1 < 100) {
@@ -523,7 +508,6 @@ function Dom() {
       } else {
         this.openingAttack();
       }
-      console.log("targetQueue target:", targetQueue);
     },
 
     attack() {
