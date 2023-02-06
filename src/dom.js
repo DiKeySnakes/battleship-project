@@ -1,6 +1,7 @@
 const Game = require("./game");
 const Ai = require("./ai");
 const audioOgg = require("./sounds/audio.ogg");
+const audioMp3 = require("./sounds/audio.mp3");
 
 function Dom() {
   const ai = Ai();
@@ -88,7 +89,8 @@ function Dom() {
     window.location.reload();
   });
 
-  const audio = new Audio(audioOgg);
+  const audio = new Audio(audioMp3, audioOgg);
+  audio.loop = true;
 
   muteButton.addEventListener("click", () => {
     if (muteButton.dataset.paused === "true") {
