@@ -125,6 +125,7 @@ function Dom() {
 
     /* eslint-disable */
     createGrid() {
+      let ghostShipArr = [];
       const shipNameQueue = [];
       const shipLengthQueue = [];
 
@@ -159,7 +160,7 @@ function Dom() {
       const b = 10;
       placeShipsContainer.style.setProperty("--grid-rows", a);
       placeShipsContainer.style.setProperty("--grid-cols", b);
-      for (let c = 0; c < playerComputerBattlefield.length; c++) {
+      for (let c = 0; c < playerHumanBattlefield.length; c++) {
         const cell = document.createElement("div");
         cell.dataset.id = `psc${c}`;
         if (!playerHumanBattlefield[c].isFree) {
@@ -185,11 +186,35 @@ function Dom() {
         placeShipsContainer.appendChild(cell).className = "grid-item";
         cell.addEventListener("mouseover", () => {
           const start = c;
+          const coords = this.createCoords(start, shipLength)[0];
           if (this.checkCoordIsValid(start, shipLength)) {
             cell.dataset.valid = true;
+            if (
+              coords !== undefined &&
+              !ai.isCrossing(playerFleetArr, coords)
+            ) {
+              coords.forEach((el) => {
+                ghostShipArr.push(el);
+              });
+              ghostShipArr.forEach((el) => {
+                const cell = document.querySelector(`[data-id="psc${el}"]`);
+                if (cell.dataset.id === `psc${el}`) {
+                  cell.dataset.ghostShip = true;
+                }
+              });
+            }
           } else {
             cell.dataset.valid = false;
           }
+        });
+        cell.addEventListener("mouseout", () => {
+          for (let i = 0; i < 100; i++) {
+            const cell = document.querySelector(`[data-id="psc${i}"]`);
+            if (cell.dataset.id === `psc${i}`) {
+              cell.dataset.ghostShip = false;
+            }
+          }
+          ghostShipArr = [];
         });
         cell.addEventListener("click", () => {
           const start = c;

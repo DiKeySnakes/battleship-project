@@ -145,7 +145,7 @@ body {
   cursor: not-allowed;
 }
 
-#player-place-ships [data-valid="true"]:hover {
+#player-place-ships [data-ghost-ship="true"] {
   background-color: var(--main-light-green);
 }
 
